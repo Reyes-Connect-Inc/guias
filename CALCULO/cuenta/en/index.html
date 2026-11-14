@@ -4,13 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Today's number · Reyes Connect</title>
-  <meta name="description" content="Enter your numbers and watch what your family would have to cover if you were gone go down, year by year. Educational calculation; not a quote.">
+  <meta name="description" content="Tell us where you are, enter your numbers and keep your sheet: how what your family would have to cover if you were gone goes down, year by year.">
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#08080c">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-  <link rel="alternate" hreflang="es" href="../">
-  <link rel="stylesheet" href="../assets/estilos.css">
+  <script>
+    /* Page root. On reyesconnectapp.com it lives at /calculo (Next drops the trailing slash, so /calculo/en/
+       ends up at /calculo/en): everything loads from /calculo/. Elsewhere, from the folder above this one. */
+    (function () {
+      var p = location.pathname, m = p.match(/^(.*\/calculo)(\/en)?\/?(index\.html)?$/);
+      var raiz = m ? m[1] + "/" : p.replace(/[^\/]*$/, "").replace(/en\/$/, "");
+      window.RC_RAIZ = raiz;
+      document.write('<link rel="icon" href="' + raiz + 'assets/favicon.svg" type="image/svg+xml">' +
+        '<link rel="alternate" hreflang="es" href="' + raiz + '">' +
+        '<link rel="stylesheet" href="' + raiz + 'assets/estilos.css">');
+    })();
+  </script>
 </head>
 <body>
   <div id="app">
@@ -24,10 +33,12 @@
       registroApi: "https://reyesconnectapp.com/api/leads/mortgage-protection",
       despertar: "https://reyesconnectapp.com/icon-192.png",
       // true = the sheet only shows after the sign-up is sent. The team decides.
-      hojaSoloConRegistro: false
+      hojaSoloConRegistro: true
     };
   </script>
-  <script src="../assets/herramientas/calculo.js"></script>
-  <script src="../assets/cascaron.js"></script>
+  <script>
+    document.write('<script src="' + window.RC_RAIZ + 'assets/herramientas/calculo.js"><\/script>' +
+      '<script src="' + window.RC_RAIZ + 'assets/cascaron.js"><\/script>');
+  </script>
 </body>
 </html>

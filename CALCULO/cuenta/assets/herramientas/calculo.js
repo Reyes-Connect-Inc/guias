@@ -165,7 +165,7 @@
       },
       avisos: {
         tasaAlta: "Esa tasa parece alta; revísala (por ejemplo, 6.5). Mientras tanto la casa se dibuja sin tasa.",
-        ceros: "¿Seguro? Revisa los ceros. Escribe la cantidad sin centavos.",
+        ceros: "¿Está bien? Revisa los ceros. Escribe la cantidad sin centavos.",
         pasaronTope: "Tus hijos ya pasaron la edad que elegiste; el gasto del mes no se cuenta. Si aún dependen de ti, sube la edad tope."
       },
       frase: "Esto es lo que tu familia tendría que cubrir si faltas, con tus números de hoy.",
@@ -174,6 +174,7 @@
       finGasto: function (A) { return "En " + A + (A === 1 ? " año" : " años"); }, anioN: function (n) { return "En " + n + " años"; },
       anio: "Año", debes: "debes", casaTit: "Tu casa", casaLey: ["Lo que debes", "Ya es tuyo"],
       casaRot: function (t, v) { return "Año " + t + ": debes " + v; },
+      casaFin: function (t) { return "Año " + t + ": ya es tuya"; },
       sinTasa: "Sin tu tasa, la casa se dibuja en línea recta. Con tu tasa baja más lento al principio.",
       hijosTit: "Tus hijos, en años", hijoRot: function (h, quedan) { return ["Hijo " + h.n + " · " + h.edad + (h.edad === 1 ? " año" : " años"), "le quedan " + quedan]; },
       totalTit: "Lo que tu familia tendría que cubrir",
@@ -187,6 +188,22 @@
         gasto: function (G, A) { return "Gasto del mes sin la cuota de la casa " + usd(G) + " × 12 × " + A + " años"; },
         gastoNo: "Gasto del mes: no se cuenta (tus hijos ya pasaron la edad que elegiste)",
         otras: "Otras deudas (como están hoy)", tiene: "Protección que ya tienes (se resta)"
+      },
+      /* Para quien está comprando o va a comprar: lo que cambia frente a «Ya tengo casa». */
+      compra: {
+        bajada: "Pon el precio de la casa que buscas y cuánto piensas dar de entrada. Ves cómo bajaría, año por año, lo que tu familia tendría que cubrir si faltas.",
+        precio: "Precio de la casa que buscas", entrada: "Cuánto piensas dar de entrada", entradaAyuda: "Si aún no lo sabes, pon un estimado.",
+        resta: "Lo que deberías de la casa", restaVacia: "Pon el precio y la entrada.",
+        anios: "Años del préstamo",
+        tasa: "Tasa para la cuenta", tasaAyuda: "Va puesta la del ejemplo, 6.5 %. Cámbiala si ya tienes la tuya.",
+        casaTit: "La casa que buscas", casaLey: ["Lo que deberías", "Ya sería tuyo"],
+        casaRot: function (t, v) { return "Año " + t + ": deberías " + v; },
+        casaFin: function (t) { return "Año " + t + ": ya sería tuya"; },
+        falta: { vacio: "Pon el precio de la casa que buscas, el gasto del mes u otras deudas, y aquí se dibuja tu cuenta.", anios: "Pon los años del préstamo (de 1 a 40)." },
+        filas: {
+          casa: "Lo que deberías de la casa que buscas",
+          compra: function (pr, en) { return "La casa que buscas: precio " + usd(pr) + " menos " + usd(en) + " de entrada"; }
+        }
       }
     },
     en: {
@@ -220,6 +237,7 @@
       finGasto: function (A) { return "In " + A + (A === 1 ? " year" : " years"); }, anioN: function (n) { return "In " + n + " years"; },
       anio: "Year", debes: "you owe", casaTit: "Your home", casaLey: ["What you owe", "Already yours"],
       casaRot: function (t, v) { return "Year " + t + ": you owe " + v; },
+      casaFin: function (t) { return "Year " + t + ": it's yours"; },
       sinTasa: "Without your rate, the home is drawn as a straight line. With your rate it goes down slower at first.",
       hijosTit: "Your children, in years", hijoRot: function (h, quedan) { return ["Child " + h.n + " · age " + h.edad, quedan + " years left"]; },
       totalTit: "What your family would have to cover",
@@ -233,9 +251,45 @@
         gasto: function (G, A) { return "Monthly spending without the mortgage payment " + usd(G) + " × 12 × " + A + " years"; },
         gastoNo: "Monthly spending: not counted (your children are past the age you chose)",
         otras: "Other debts (as they are today)", tiene: "Protection you already have (subtracted)"
+      },
+      compra: {
+        bajada: "Enter the price of the home you're looking for and how much you plan to put down. Watch what your family would have to cover if you were gone go down, year by year.",
+        precio: "Price of the home you're looking for", entrada: "How much you plan to put down", entradaAyuda: "If you don't know yet, enter an estimate.",
+        resta: "What you would owe on the home", restaVacia: "Enter the price and the down payment.",
+        anios: "Loan years",
+        tasa: "Rate for the number", tasaAyuda: "The example's rate, 6.5%, is filled in. Change it if you already have yours.",
+        casaTit: "The home you're looking for", casaLey: ["What you would owe", "Would be yours"],
+        casaRot: function (t, v) { return "Year " + t + ": you would owe " + v; },
+        casaFin: function (t) { return "Year " + t + ": it would be yours"; },
+        falta: { vacio: "Enter the price of the home you're looking for, your monthly spending or other debts, and your number shows up here.", anios: "Enter the loan years (1 to 40)." },
+        filas: {
+          casa: "What you would owe on the home you're looking for",
+          compra: function (pr, en) { return "The home you're looking for: price " + usd(pr) + " minus " + usd(en) + " down"; }
+        }
       }
     }
   };
+  /* Textos según el momento: para quien compra, «la casa que buscas» en vez de «tu casa». */
+  function tx(lang, compra) {
+    var b = TX[lang];
+    if (!compra) return b;
+    var o = {}, k;
+    for (k in b) o[k] = b[k];
+    for (k in b.compra) if (k !== "falta" && k !== "filas") o[k] = b.compra[k];
+    o.falta = {}; for (k in b.falta) o.falta[k] = b.compra.falta[k] || b.falta[k];
+    o.filas = {}; for (k in b.filas) o.filas[k] = b.filas[k];
+    for (k in b.compra.filas) o.filas[k] = b.compra.filas[k];
+    return o;
+  }
+  /* Para quien compra: lo que debería sale de la resta (precio menos entrada). El cálculo no cambia: solo recibe ese número. */
+  function preparar(e) {
+    if (!e || !e.compra) return e;
+    var o = {}, k;
+    for (k in e) o[k] = e[k];
+    var pr = num(e.precio), en = num(e.entrada);
+    o.deuda = pr > 0 ? String(Math.max(0, Math.round(pr - (en > 0 ? en : 0)))) : "";
+    return o;
+  }
 
   /* ---------- Formulario ---------- */
   function campoNum(id, et, ayuda, valor, opc) {
@@ -252,8 +306,12 @@
     return isNaN(n) ? "" : Math.round(n).toLocaleString("en-US");
   }
 
+  function textoResta(e, t) {
+    var p = preparar(e);
+    return p.deuda === "" ? t.restaVacia : usd(+p.deuda);
+  }
   function pintarFormulario(cont, e, lang, avisar) {
-    var t = TX[lang];
+    var t = tx(lang, e.compra);
     function edadesHTML() {
       var h = "";
       for (var i = 0; i < e.hijos; i++) {
@@ -265,8 +323,13 @@
     for (var i = 0; i <= 6; i++) botonesHijos += '<button type="button" data-hijos="' + i + '" aria-pressed="' + (e.hijos === i) + '">' + i + "</button>";
     [18, 21, 22].forEach(function (v) { botonesTope += '<button type="button" data-tope="' + v + '" aria-pressed="' + (+e.tope === v) + '">' + v + "</button>"; });
 
+    var casaHTML = e.compra
+      ? campoNum("precio", t.precio, "", miles(e.precio), { signo: "$" }) +
+        campoNum("entrada", t.entrada, t.entradaAyuda, miles(e.entrada), { signo: "$" }) +
+        '<p class="resta" id="resta"><span>' + t.resta + '</span><b id="resta-valor">' + textoResta(e, t) + "</b></p>"
+      : campoNum("deuda", t.deuda, t.deudaAyuda, miles(e.deuda), { signo: "$" });
     cont.innerHTML =
-      campoNum("deuda", t.deuda, t.deudaAyuda, miles(e.deuda), { signo: "$" }) +
+      casaHTML +
       '<div class="dos-col" style="margin-top:16px">' +
       campoNum("anios", t.anios, "", e.anios, { fin: t.aniosFin }) +
       campoNum("tasa", t.tasa, "", e.tasa, { fin: "%", decimal: true }) +
@@ -305,6 +368,7 @@
         var bonito = crudo ? (+crudo).toLocaleString("en-US") : "";
         if (el.value !== bonito) el.value = bonito;
         if (c === "gasto") cont.querySelector("#caja-anios-gasto").hidden = !!e.hijos || !(+crudo > 0);
+        if (c === "precio" || c === "entrada") cont.querySelector("#resta-valor").textContent = textoResta(e, t);
       }
       e.ejemplo = false;
       avisar();
@@ -372,7 +436,7 @@
   }
 
   function pintarResultado(cont, res, lang, anio) {
-    var t = TX[lang];
+    var t = tx(lang, res.compra);
     if (res.falta) {
       cont.innerHTML = '<div class="aviso-suave">' + t.falta[res.falta] + "</div>";
       return;
@@ -411,7 +475,7 @@
         '<div class="casa-vivo">' + casaSVG(saldoCasa(res.D, res.N, res.tasa, anio) / res.D, t.casaTit) + "</div>" +
         '<p class="leyenda"><span><i style="background:' + MIEL + '"></i>' + t.casaLey[0] + '</span><span><i style="background:' + AZUL + '"></i>' + t.casaLey[1] + "</span></p>" +
         '<ul class="rotulos-casa"><li><b>' + t.casaRot(anio, usd(saldoCasa(res.D, res.N, res.tasa, anio))) + "</b></li>" +
-        rot.map(function (a) { return "<li>" + t.casaRot(a, usd(saldoCasa(res.D, res.N, res.tasa, a))) + "</li>"; }).join("") + "</ul>" +
+        rot.map(function (a) { return "<li>" + (a >= res.N ? t.casaFin(a) : t.casaRot(a, usd(saldoCasa(res.D, res.N, res.tasa, a)))) + "</li>"; }).join("") + "</ul>" +
         (res.tasa ? "" : '<p class="chico">' + t.sinTasa + "</p>") + "</div>";
     }
     if (res.k > 0) {
@@ -426,8 +490,9 @@
   }
 
   /* ---------- Para la hoja ---------- */
-  function resumenHoja(res, lang) {
-    var t = TX[lang], f = t.filas, filas = [];
+  function resumenHoja(res, lang, e) {
+    var t = tx(lang, res.compra), f = t.filas, filas = [];
+    if (res.compra && e && num(e.precio) > 0) filas.push([f.compra(num(e.precio), num(e.entrada) > 0 ? num(e.entrada) : 0), ""]);
     if (res.D > 0) filas.push([f.casa + " · " + f.anios(res.N, res.tasa), usd(res.D)]);
     if (res.k > 0) filas.push([res.A > 0 ? f.hijos(res.hijos, res.E) : f.hijosPasaron(res.hijos, res.E), ""]);
     if (res.G > 0) filas.push(res.A > 0 ? [f.gasto(res.G, res.A), usd(res.familiaHoy)] : [f.gastoNo, usd(0)]);
@@ -489,9 +554,14 @@
     version: "calculo-v1-2026-11-13",
     textos: TX,
     vacio: function () { return { deuda: "", anios: "", tasa: "", hijos: 0, edades: [], tope: 18, gasto: "", aniosGasto: "", otras: "", tiene: "", ejemplo: false }; },
+    /* Para quien está comprando o va a comprar: precio y entrada; años y tasa del ejemplo, editables. */
+    vacioCompra: function () { return { compra: true, precio: "", entrada: "", deuda: "", anios: "30", tasa: "6.5", hijos: 0, edades: [], tope: 18, gasto: "", aniosGasto: "", otras: "", tiene: "", ejemplo: false }; },
+    ejemploCompra: function () { return { compra: true, precio: "350000", entrada: "50000", deuda: "", anios: "30", tasa: "6.5", hijos: 2, edades: ["4", "9"], tope: 18, gasto: "3500", otras: "", tiene: "", ejemplo: true }; },
+    preparar: preparar,
     /* Para «Abrir en el navegador»: los números van en el # de la dirección (el # no viaja al servidor). */
     aHash: function (e) {
-      var p = [["d", e.deuda], ["n", e.anios], ["t", e.tasa], ["k", e.hijos], ["h", (e.edades || []).join(",")], ["e", e.tope],
+      var p = [["c", e.compra ? 1 : ""], ["pr", e.compra ? e.precio : ""], ["en", e.compra ? e.entrada : ""], ["d", e.compra ? "" : e.deuda],
+        ["n", e.anios], ["t", e.tasa], ["k", e.hijos], ["h", (e.edades || []).join(",")], ["e", e.tope],
         ["g", e.gasto], ["ag", e.aniosGasto], ["o", e.otras], ["p", e.tiene], ["x", e.ejemplo ? 1 : ""]];
       return p.filter(function (x) { return x[1] !== "" && x[1] != null && x[1] !== 0; })
         .map(function (x) { return x[0] + "=" + encodeURIComponent(x[1]); }).join("&");
@@ -501,11 +571,12 @@
       String(h || "").replace(/^#/, "").split("&").forEach(function (kv) {
         var i = kv.indexOf("="); if (i > 0) q[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1));
       });
-      if (!(q.d || q.g || q.o)) return null;
+      if (!(q.d || q.pr || q.g || q.o)) return null;
       function d(v) { return String(v || "").replace(/[^0-9]/g, "").slice(0, 9); }
       var k = Math.max(0, Math.min(6, parseInt(q.k, 10) || 0));
       return {
-        deuda: d(q.d), anios: d(q.n).slice(0, 2), tasa: String(q.t || "").replace(/[^0-9.]/g, "").slice(0, 5),
+        compra: q.c === "1", precio: d(q.pr), entrada: d(q.en),
+        deuda: q.c === "1" ? "" : d(q.d), anios: d(q.n).slice(0, 2), tasa: String(q.t || "").replace(/[^0-9.]/g, "").slice(0, 5),
         hijos: k, edades: String(q.h || "").split(",").slice(0, k).map(function (v) { return d(v).slice(0, 2); }),
         tope: [18, 21, 22].indexOf(+q.e) >= 0 ? +q.e : 18, gasto: d(q.g), aniosGasto: d(q.ag).slice(0, 2),
         otras: d(q.o), tiene: d(q.p), ejemplo: q.x === "1"

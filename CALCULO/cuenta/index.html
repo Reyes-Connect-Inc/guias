@@ -4,13 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Tu cuenta de hoy · Reyes Connect</title>
-  <meta name="description" content="Pon tus números y mira cómo baja, año por año, lo que tu familia tendría que cubrir si faltas. Cálculo educativo; no es una cotización.">
+  <meta name="description" content="Dinos en qué momento estás, pon tus números y llévate tu hoja: cómo baja, año por año, lo que tu familia tendría que cubrir si faltas.">
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#08080c">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="alternate" hreflang="en" href="en/">
-  <link rel="stylesheet" href="assets/estilos.css">
+  <script>
+    /* Raíz de la página. En reyesconnectapp.com vive en /calculo (Next quita la barra final, así que /calculo/
+       termina en /calculo): todo se pide desde /calculo/. En otro sitio, desde la carpeta de esta página. */
+    (function () {
+      var p = location.pathname, m = p.match(/^(.*\/calculo)(\/en)?\/?(index\.html)?$/);
+      var raiz = m ? m[1] + "/" : p.replace(/[^\/]*$/, "");
+      window.RC_RAIZ = raiz;
+      document.write('<link rel="icon" href="' + raiz + 'assets/favicon.svg" type="image/svg+xml">' +
+        '<link rel="alternate" hreflang="en" href="' + raiz + 'en/">' +
+        '<link rel="stylesheet" href="' + raiz + 'assets/estilos.css">');
+    })();
+  </script>
 </head>
 <body>
   <div id="app">
@@ -24,10 +33,12 @@
       registroApi: "https://reyesconnectapp.com/api/leads/mortgage-protection",
       despertar: "https://reyesconnectapp.com/icon-192.png",
       // true = la hoja sale solo después del registro enviado (o ?registrado=1). Lo decide el equipo.
-      hojaSoloConRegistro: false
+      hojaSoloConRegistro: true
     };
   </script>
-  <script src="assets/herramientas/calculo.js"></script>
-  <script src="assets/cascaron.js"></script>
+  <script>
+    document.write('<script src="' + window.RC_RAIZ + 'assets/herramientas/calculo.js"><\/script>' +
+      '<script src="' + window.RC_RAIZ + 'assets/cascaron.js"><\/script>');
+  </script>
 </body>
 </html>

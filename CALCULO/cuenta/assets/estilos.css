@@ -47,8 +47,10 @@ a { color: var(--miel); }
 
 /* Pasos */
 .pasos { position: sticky; top: 0; z-index: 10; background: rgba(8,8,12,.92); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid var(--borde); }
-.pasos ol { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 0; padding: 8px 0; list-style: none; }
-.pasos button { width: 100%; display: flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 6px 4px; border: 0; border-radius: 12px; background: transparent; color: var(--tenue); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+.pasos ol { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; margin: 0; padding: 6px 0; list-style: none; }
+.pasos button { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-height: 52px; padding: 5px 2px; border: 0; border-radius: 12px; background: transparent; color: var(--tenue); font: inherit; font-size: 12px; line-height: 1.15; font-weight: 700; cursor: pointer; }
+.pasos .rot { display: block; max-width: 100%; text-align: center; overflow-wrap: anywhere; }
+@media (min-width: 520px) { .pasos button { flex-direction: row; gap: 7px; font-size: 14px; } }
 .pasos .num { display: grid; place-items: center; flex: none; width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid currentColor; font-size: 13px; }
 .pasos button[aria-current="step"] { color: #08080c; background: var(--miel); }
 .pasos button[aria-current="step"] .num { border-color: #08080c; }
@@ -65,6 +67,25 @@ h3 { font-size: 19px; }
 .chico { font-size: 15px; color: var(--tenue); }
 
 .casa-portada { margin: 16px auto 4px; width: min(190px, 52vw); }
+
+/* Paso 1: la entrevista. El astronauta saluda junto al título. */
+.saludo { display: flex; align-items: center; gap: 12px; }
+.saludo > div { min-width: 0; }
+.astronauta { flex: none; width: min(132px, 34vw); height: auto; filter: drop-shadow(0 0 18px rgba(34,211,238,.25)); }
+.pregunta-momento { margin-top: 22px; }
+.momentos { display: grid; gap: 10px; margin-top: 14px; }
+.momentos button { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; width: 100%; min-height: 72px; padding: 14px 18px; border-radius: 16px; border: 1px solid rgba(255,255,255,.22); background: linear-gradient(180deg, var(--sup-2), var(--sup)); color: var(--crema); font: inherit; text-align: left; cursor: pointer; }
+.momentos button b { font-size: 20px; font-weight: 800; }
+.momentos button span { font-size: 15px; color: var(--crema-2); }
+.momentos button:hover { border-color: var(--miel); }
+.momentos button[aria-pressed="true"] { border-color: var(--miel); box-shadow: inset 0 0 0 1px var(--miel); }
+@media (min-width: 600px) { .momentos { grid-template-columns: 1fr 1fr; } }
+.momento-elegido { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 10px; color: var(--miel); font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.momento-elegido .boton-texto { margin: 0; padding: 8px 4px; font-size: 14px; letter-spacing: 0; text-transform: none; }
+
+/* Para quien compra: lo que debería sale de la resta */
+.resta { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin: 14px 0 0; padding: 12px 14px; border-radius: 14px; background: rgba(34,211,238,.08); border: 1px solid rgba(34,211,238,.30); color: var(--crema-2); font-size: 16px; }
+.resta b { color: var(--cian); font-size: 20px; white-space: nowrap; }
 .leyenda { display: flex; justify-content: center; gap: 16px; margin: 6px 0 0; font-size: 15px; color: var(--crema-2); flex-wrap: wrap; }
 .leyenda i { display: inline-block; width: 13px; height: 13px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
 

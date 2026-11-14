@@ -1,13 +1,18 @@
-/* Cascarón de las puertas de Reyes Connect: 1 Regístrate · 2 Tu cuenta · 3 Tu hoja.
+/* Cascarón de las puertas de Reyes Connect (v3): 1 Tu momento · 2 Regístrate · 3 Tu cuenta · 4 Tu hoja.
    La herramienta se enchufa (assets/herramientas/<id>.js). Este archivo no sabe de casas ni de hijos.
-   Lo único que sale del teléfono es el registro del paso 1 (nombre, contacto, Florida sí/no, ZIP y el permiso),
-   y solo si la persona lo envía. Los números de la cuenta no salen nunca. Sin analítica ni cookies. */
+   Lo único que sale del teléfono es el registro (nombre, contacto, Florida sí/no, ZIP, el permiso y el momento
+   que eligió la persona), y solo si la persona lo envía. Los números de la cuenta no salen nunca. Sin analítica ni cookies. */
 (function () {
   "use strict";
   var CFG = window.RC_PUERTA;               // lo pone cada index.html
   var lang = CFG.lang === "en" ? "en" : "es";
   var H = window.RC.herramientas[CFG.herramienta];
   var CLAVE = "rc-puerta-" + H.id + "-v1";
+  // Raíz de la página: «/calculo/» en reyesconnectapp.com, o la carpeta donde viva en otro sitio (la calcula index.html).
+  var RAIZ = window.RC_RAIZ || "./";
+  // En reyesconnectapp.com el registro va a la misma dirección y se lee la respuesta. En otro dominio, como en v1b.
+  var MISMA = /(^|\.)reyesconnectapp\.com$/i.test(location.hostname);
+  var API_MISMA = "/api/leads/mortgage-protection";
 
   /* Permiso de servicio: copia EXACTA de TEXTO_CONSENT_MP_SERVICIO y CONSENT_MP_VERSION
      (reyes-connect-web/lib/seguros/mortgage-protection.ts). Si la app cambia el texto, sube la versión y se copia otra vez. */
@@ -28,12 +33,42 @@
       "is not a condition of purchase. I may reply STOP to cancel texts or unsubscribe from email at any time."
   };
 
+  /* El momento de la persona (la entrevista del primer paso).
+     plazo y campana viajan en el registro sin cambiar la API: plazo ya existe («Ahora | 30 días | Explorando»)
+     y campana_id es una etiqueta estable para filtrar. «Ya tengo casa» no lleva plazo. */
+  var MOMENTOS = {
+    tengo:     { compra: false, plazo: "",           campana: "calculo-tengo-casa" },
+    comprando: { compra: true,  plazo: "Ahora",      campana: "calculo-comprando" },
+    voy:       { compra: true,  plazo: "30 días",    campana: "calculo-va-a-comprar" },
+    aprender:  { compra: false, plazo: "Explorando", campana: "calculo-aprendiendo" }
+  };
+  var ORDEN = ["tengo", "comprando", "voy", "aprender"];
+
   /* ---------- Textos del cascarón ---------- */
   var TX = {
     es: {
-      pasos: ["Regístrate", "Tu cuenta", "Tu hoja"],
-      p1Ante: "Comentaste CALCULO",
-      p1Entrada: "Tres pasos, en este mismo teléfono. Tu hoja te la llevas al final.",
+      pasos: ["Tu momento", "Regístrate", "Tu cuenta", "Tu hoja"],
+      p0Ante: "Comentaste CALCULO",
+      p0Entrada: "Una pregunta y hacemos tu cuenta a tu medida. Tu hoja te la llevas al final.",
+      p0Pregunta: "¿En qué momento estás?",
+      momento: {
+        tengo: ["Ya tengo casa", "Haz la cuenta con lo que debes hoy."],
+        comprando: ["Estoy comprando", "Mira lo que deberías por la casa que buscas."],
+        voy: ["Voy a comprar", "Prepara tu cuenta antes de comprar."],
+        aprender: ["Quiero aprender", "Empieza con un ejemplo y juega con los números."]
+      },
+      // Para la hoja y el antetítulo: cómo se lee el momento.
+      momentoLinea: { tengo: "Ya tienes casa", comprando: "Estás comprando casa", voy: "Vas a comprar casa", aprender: "Estás aprendiendo cómo funciona" },
+      // Para el WhatsApp del cierre.
+      momentoWa: { tengo: "ya tengo casa", comprando: "estoy comprando casa", voy: "voy a comprar casa", aprender: "quiero aprender cómo funciona" },
+      cambiar: "Cambiar",
+      p1Tit: "Regístrate",
+      p1Entrada: {
+        tengo: "Con tu registro, tu cuenta y tu hoja quedan listas en este teléfono.",
+        comprando: "Con tu registro hacemos la cuenta de la casa que buscas y te llevas tu hoja.",
+        voy: "Con tu registro preparas tu cuenta antes de comprar y te llevas tu hoja.",
+        aprender: "Con tu registro abres el ejemplo, juegas con los números y te llevas tu hoja."
+      },
       registrar: "Regístrate",
       registrarPorQue: "Así un agente con licencia del equipo de Reyes Connect puede repasar tu cuenta contigo si lo pides.",
       nombre: "Tu nombre",
@@ -54,17 +89,20 @@
       errPermiso: "Para registrarte, marca la casilla de permiso.",
       enviando: "Enviando…",
       noEnvio: "No se pudo enviar. Revisa tu conexión y vuelve a tocar «Regístrate».",
-      sinRegistro: "Sin registro también puedes hacer tu cuenta.",
-      primero: "Prefiero hacer mi cuenta primero",
+      noGuardo: "Tu registro no se pudo guardar. Toca «Regístrate» otra vez.",
+      sinRegistro: "¿Prefieres ver tus números primero? También puedes. Tu hoja sale cuando te registres.",
+      primero: "Ver mis números primero",
       soloConRegistro: "Tu hoja sale cuando te registres. Es un minuto.",
-      privacidad: "Tus números de la cuenta se quedan en tu teléfono; no nos llegan. En el registro pedimos lo mínimo y nunca seguro social, fecha de nacimiento, dirección, banco, tarjeta ni estatus migratorio.",
+      soloConRegistroEnlace: "Para bajar tu hoja en este navegador, regístrate aquí. Es un minuto.",
+      privacidad: "Tus números se quedan en tu teléfono. En el registro solo pedimos tu nombre y cómo contactarte.",
       gracias: "Registro enviado. Ahora tu cuenta.",
-      p2Ante: "Paso 2",
+      p2Ante: "Tu cuenta",
       ejemplo: "Ver con el ejemplo del video",
+      ejemploCompra: "Ver con un ejemplo",
       ejemploRot: "Ejemplo · familia inventada",
       miHoja: "Mi hoja",
-      faltaHoja: "Primero pon tus números en el paso 2.",
-      p3Ante: "Paso 3",
+      faltaHoja: "Primero pon tus números en «Tu cuenta».",
+      p3Ante: "Tu hoja",
       p3Tit: "Tu hoja",
       indicacion: "Mantén el dedo sobre la hoja para guardarla.",
       pdf: "Descargar PDF",
@@ -77,7 +115,7 @@
       pdfEnApp: "Aquí dentro, mantén el dedo sobre la hoja para guardarla.",
       enApp: "Estás dentro de Instagram o Facebook. Aquí no se puede bajar el archivo: mantén el dedo sobre la hoja para guardarla. Para el PDF, abre la página en tu navegador:",
       abrirNav: "Copiar el enlace con mis números",
-      abrirNavAyuda: "O toca ••• arriba y elige «Abrir en el navegador». Tus números van en el enlace, después del #, y esa parte no nos llega.",
+      abrirNavAyuda: "O toca ••• arriba y elige «Abrir en el navegador». Tus números van en el enlace, después del #, y esa parte no nos llega. Allá te registras y bajas el PDF.",
       copiado: "Copiado. Abre Safari o Chrome y pega el enlace.",
       noCopiado: "No se pudo copiar. Toca ••• arriba y elige «Abrir en el navegador».",
       barraHoy: "Hoy",
@@ -85,36 +123,53 @@
       cierrePregunta: "¿Qué quieres hacer ahora?",
       cierreFlorida: "Para enseñarte el camino que te toca: ¿vives en Florida?",
       cierreA: "Repasarla con un agente con licencia",
-      cierreANota: "Se abre WhatsApp con el equipo de Reyes Connect. Tú escribes primero: nadie te llama sin que lo pidas.",
+      cierreANota: "Se abre WhatsApp con el equipo de Reyes Connect, con tu mensaje ya escrito.",
       cierreFuera: "Nuestra licencia es de Florida. Para tu estado te conviene un agente con licencia allí. Tu hoja es tuya igual.",
       cierreB: "Me quedo con mi hoja",
-      cierreListo: "Listo. Tu hoja es tuya. Nadie te va a escribir por esto.",
-      waTexto: "Hola. Hice mi cuenta en la página de Reyes Connect y quiero repasarla con un agente con licencia.",
+      cierreListo: "Listo. Tu hoja es tuya.",
+      waTexto: "Hola. Hice mi cuenta en la página de Reyes Connect y quiero repasarla con un agente con licencia",
+      waY: ", y ",
       registrarOtra: "¿Aún no te registras?",
       borrar: "Borrar mis números de este teléfono",
       borrado: "Listo. Se borraron de este teléfono.",
-      avisoCalc: "Este es un cálculo educativo con tus propios números. No es una cotización, ni una oferta, ni una recomendación de producto o de monto. Tu cuenta cambia cuando cambia tu vida. Para ver qué te conviene, habla con un agente con licencia.",
-      noDatos: "No nos mandes datos personales ni de salud por mensaje; eso se habla con el agente con licencia.",
+      nota: "Es un cálculo educativo hecho con tus números, para que veas tu cuenta clara.",
       licencia: "Reyes Connect Insurance · FL License #G298682 · NPN #22061550. No afiliado al gobierno.",
       contacto: "hello@reyesconnectapp.com · WhatsApp +1 305-910-7614",
       otroIdioma: "English", otroHref: "en/",
       hoja: {
         fecha: function (d) { return d.toLocaleDateString("es-US", { day: "numeric", month: "long", year: "numeric" }); },
+        para: "Para: ",
         numeros: "Tus números",
         grafica: "Cómo baja, año por año",
         totales: "Lo que tu familia tendría que cubrir si faltas",
         aprendisteTit: "Hoy aprendiste",
         aprendiste: "Lo que tu familia tendría que cubrir si faltas baja cada año. Tu cuenta se saca con los números de hoy. Revisa tu cuenta cuando cambie tu vida.",
-        aviso: "Cálculo educativo con tus propios números. No es una cotización ni una recomendación.",
-        tuTelefono: "Estos números se hicieron en tu teléfono; no nos llegaron.",
+        aviso: "Cálculo educativo hecho en tu teléfono con tus números.",
         pedir: "Para repasarla con un agente con licencia en Florida: equipo de Reyes Connect, WhatsApp +1 305-910-7614 o hello@reyesconnectapp.com.",
         archivo: "mi-cuenta-de-hoy.pdf"
       }
     },
     en: {
-      pasos: ["Sign up", "Your number", "Your sheet"],
-      p1Ante: "You commented CALCULO",
-      p1Entrada: "Three steps, right on this phone. You keep your sheet at the end.",
+      pasos: ["Your moment", "Sign up", "Your number", "Your sheet"],
+      p0Ante: "You commented CALCULO",
+      p0Entrada: "One question and we tailor your number to you. You keep your sheet at the end.",
+      p0Pregunta: "Where are you right now?",
+      momento: {
+        tengo: ["I already own a home", "Run your number with what you owe today."],
+        comprando: ["I'm buying", "See what you would owe on the home you're looking for."],
+        voy: ["I'm going to buy", "Get your number ready before you buy."],
+        aprender: ["I want to learn", "Start with an example and play with the numbers."]
+      },
+      momentoLinea: { tengo: "You already own a home", comprando: "You're buying a home", voy: "You're going to buy a home", aprender: "You're learning how it works" },
+      momentoWa: { tengo: "I already own a home", comprando: "I'm buying a home", voy: "I'm going to buy a home", aprender: "I want to learn how it works" },
+      cambiar: "Change",
+      p1Tit: "Sign up",
+      p1Entrada: {
+        tengo: "Once you sign up, your number and your sheet are ready on this phone.",
+        comprando: "Once you sign up, we run the number for the home you're looking for and you keep your sheet.",
+        voy: "Once you sign up, you get your number ready before you buy and you keep your sheet.",
+        aprender: "Once you sign up, you open the example, play with the numbers and keep your sheet."
+      },
       registrar: "Sign up",
       registrarPorQue: "That way a licensed agent on the Reyes Connect team can go over your number with you if you ask.",
       nombre: "Your name",
@@ -135,17 +190,20 @@
       errPermiso: "To sign up, check the permission box.",
       enviando: "Sending…",
       noEnvio: "It couldn't be sent. Check your connection and tap «Sign up» again.",
-      sinRegistro: "You can also run your number without signing up.",
-      primero: "I'd rather run my number first",
+      noGuardo: "Your sign-up couldn't be saved. Tap «Sign up» again.",
+      sinRegistro: "Would you rather see your numbers first? You can. Your sheet comes once you sign up.",
+      primero: "See my numbers first",
       soloConRegistro: "Your sheet comes once you sign up. It takes a minute.",
-      privacidad: "The numbers you enter stay on your phone; they don't reach us. The sign-up asks for the minimum and never your Social Security number, date of birth, address, bank, card or immigration status.",
+      soloConRegistroEnlace: "To download your sheet in this browser, sign up here. It takes a minute.",
+      privacidad: "Your numbers stay on your phone. The sign-up only asks for your name and how to reach you.",
       gracias: "Sign-up sent. Now your number.",
-      p2Ante: "Step 2",
+      p2Ante: "Your number",
       ejemplo: "See it with the video's example",
+      ejemploCompra: "See it with an example",
       ejemploRot: "Example · made-up family",
       miHoja: "My sheet",
-      faltaHoja: "First enter your numbers in step 2.",
-      p3Ante: "Step 3",
+      faltaHoja: "First enter your numbers in «Your number».",
+      p3Ante: "Your sheet",
       p3Tit: "Your sheet",
       indicacion: "Press and hold the sheet to save it.",
       pdf: "Download PDF",
@@ -158,7 +216,7 @@
       pdfEnApp: "In here, press and hold the sheet to save it.",
       enApp: "You're inside Instagram or Facebook. The file can't be downloaded in here: press and hold the sheet to save it. For the PDF, open the page in your browser:",
       abrirNav: "Copy the link with my numbers",
-      abrirNavAyuda: "Or tap ••• at the top and choose «Open in browser». Your numbers travel in the link, after the #, and that part does not reach us.",
+      abrirNavAyuda: "Or tap ••• at the top and choose «Open in browser». Your numbers travel in the link, after the #, and that part does not reach us. There you sign up and download the PDF.",
       copiado: "Copied. Open Safari or Chrome and paste the link.",
       noCopiado: "Couldn't copy. Tap ••• at the top and choose «Open in browser».",
       barraHoy: "Today",
@@ -166,28 +224,28 @@
       cierrePregunta: "What do you want to do now?",
       cierreFlorida: "To show you the path that fits you: do you live in Florida?",
       cierreA: "Go over it with a licensed agent",
-      cierreANota: "WhatsApp opens with the Reyes Connect team. You write first: no one calls you unless you ask.",
+      cierreANota: "WhatsApp opens with the Reyes Connect team, with your message already written.",
       cierreFuera: "Our license is in Florida. For your state, a licensed agent there is the better fit. Your sheet is still yours.",
       cierreB: "I'll keep my sheet",
-      cierreListo: "Done. Your sheet is yours. No one will message you about this.",
-      waTexto: "Hi. I ran my numbers on the Reyes Connect page and I would like to go over them with a licensed agent.",
+      cierreListo: "Done. Your sheet is yours.",
+      waTexto: "Hi. I ran my numbers on the Reyes Connect page and I would like to go over them with a licensed agent",
+      waY: ", and ",
       registrarOtra: "Haven't signed up yet?",
       borrar: "Delete my numbers from this phone",
       borrado: "Done. They were deleted from this phone.",
-      avisoCalc: "This is an educational calculation using your own numbers. It is not a quote, an offer, or a recommendation of any product or amount. Your number changes when your life changes. To see what fits you, talk to a licensed agent.",
-      noDatos: "Please don't send personal or health details by message; that is covered with the licensed agent.",
+      nota: "This is an educational calculation made with your numbers, so you can see your number clearly.",
       licencia: "Reyes Connect Insurance · FL License #G298682 · NPN #22061550. Not affiliated with the government.",
       contacto: "hello@reyesconnectapp.com · WhatsApp +1 305-910-7614",
-      otroIdioma: "Español", otroHref: "../",
+      otroIdioma: "Español", otroHref: "",
       hoja: {
         fecha: function (d) { return d.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" }); },
+        para: "For: ",
         numeros: "Your numbers",
         grafica: "How it goes down, year by year",
         totales: "What your family would have to cover if you were gone",
         aprendisteTit: "What you learned today",
         aprendiste: "What your family would have to cover if you were gone goes down every year. Your number is run with today's numbers. Review your number when your life changes.",
-        aviso: "Educational calculation using your own numbers. Not a quote or a recommendation.",
-        tuTelefono: "These numbers were made on your phone; they did not reach us.",
+        aviso: "Educational calculation made on your phone with your numbers.",
         pedir: "To go over it with a licensed agent in Florida: the Reyes Connect team, WhatsApp +1 305-910-7614 or hello@reyesconnectapp.com.",
         archivo: "todays-number.pdf"
       }
@@ -199,8 +257,9 @@
   function leer() { try { return JSON.parse(localStorage.getItem(CLAVE)) || null; } catch (e) { return null; } }
   function guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(estado)); } catch (e) { /* sin memoria: sigue igual */ } }
   var estado = leer() || {};
+  if (estado.momento && !MOMENTOS[estado.momento]) delete estado.momento;
   estado.entradas = estado.entradas || H.vacio();
-  estado.paso = estado.paso || 1;
+  if (estado.paso == null) estado.paso = estado.momento ? 1 : 0;
   estado.anio = estado.anio || 0;
   // Versión anterior: «registro» marcaba solo que abrió el formulario. Eso no es un registro.
   if (estado.registro && !estado.registro.confirmado && !estado.registro.enviado) { estado.abrioRegistro = estado.registro.abierto; delete estado.registro; }
@@ -209,46 +268,66 @@
   var EN_APP = /Instagram|FBAN|FBAV|FB_IAB/i.test(navigator.userAgent || "");
   var WHATSAPP = "13059107614"; // el WhatsApp del equipo de Reyes Connect (botón A del cierre)
 
+  /* Solo cuenta el registro que salió de este formulario. En reyesconnectapp.com, solo el que el servidor confirmó
+     con ok:true (via «misma-direccion»). La dirección no puede marcar a nadie como registrado: ni r=1 en el #
+     ni ?registrado=1 cuentan. Un registro guardado por versiones anteriores con esas marcas se descarta. */
+  function registroValido(r) {
+    if (!r || !r.enviado) return false;
+    return MISMA ? r.via === "misma-direccion" && !!r.confirmado : (r.via === "pagina" || r.via === "misma-direccion");
+  }
+  if (estado.registro && !registroValido(estado.registro)) delete estado.registro;
   // Números que llegan en el # (desde «Abrir en el navegador» o un enlace copiado). El # no viaja al servidor.
-  var dePaso = null;
+  // Además del cálculo, el # lleva el momento (m); nunca el nombre, el contacto ni el registro.
+  var dePaso = null, delHash = null;
   try {
-    var delHash = H.deHash ? H.deHash(location.hash) : null;
+    var qh = {};
+    String(location.hash || "").replace(/^#/, "").split("&").forEach(function (kv) { var i = kv.indexOf("="); if (i > 0) qh[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1)); });
+    if (MOMENTOS[qh.m]) estado.momento = qh.m;
+    delHash = H.deHash ? H.deHash(location.hash) : null;
     if (delHash) {
       estado.entradas = delHash; estado.anio = 0;
-      dePaso = H.calcular(delHash).falta ? 2 : 3;
+      dePaso = calc(delHash).falta ? 2 : 3;
       estado.paso = dePaso;
     }
   } catch (e) {}
-  // Vuelta confirmada desde la página de gracias del formulario (cuando la app lo tenga): ?registrado=1
-  var volvioRegistrado = false;
-  try { volvioRegistrado = new URLSearchParams(location.search).get("registrado") === "1"; } catch (e) {}
-  function marcarRegistro(via) {
-    estado.registro = {
-      confirmado: new Date().toISOString(), via: via, campana: "calculo",
-      consentimiento: PERMISO.version, abierto: estado.abrioRegistro || null
-    };
-    guardar();
-  }
-  if (volvioRegistrado) { marcarRegistro("enlace"); estado.paso = 2; }
-  // Limpia la dirección: sin números ni marcas a la vista.
-  if (delHash || volvioRegistrado) { try { history.replaceState(null, "", location.pathname); } catch (e) {} }
+  // Limpia la dirección: sin números ni marcas a la vista (tampoco un ?registrado=1, que no cuenta).
+  var marcaVieja = /[#&]r=/.test(location.hash) || /[?&]registrado=/.test(location.search);
+  if (delHash || marcaVieja || /[#&]m=/.test(location.hash)) { try { history.replaceState(null, "", location.pathname); } catch (e) {} }
+
+  /* El cálculo no cambia: para quien compra, la herramienta pone la resta (precio menos entrada) como lo que debería. */
+  function calc(e) { var r = H.calcular(H.preparar ? H.preparar(e) : e); r.compra = !!(e && e.compra); return r; }
+  function momento() { return MOMENTOS[estado.momento] ? estado.momento : null; }
+
+  // El astronauta de la marca: se carga una vez y sirve para la pantalla y para la hoja.
+  var ASTRO_SRC = RAIZ + "assets/astronauta.png";
+  var astro = new Image();
+  astro.onload = function () { if (estado.paso === 3 && lienzo) pintarHoja(); };
+  astro.src = ASTRO_SRC;
 
   /* ---------- Esqueleto ---------- */
   var $ = function (s) { return document.querySelector(s); };
   var app = $("#app");
   app.innerHTML =
-    '<header class="cabecera"><div class="ancho"><a class="marca" href="./"><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#101016"/><path d="M14 30 32 15l18 15v19H14z" fill="none" stroke="#e7b35c" stroke-width="4" stroke-linejoin="round"/><rect x="27" y="36" width="10" height="13" fill="#4da3ff"/></svg><span>Reyes <span class="oro">Connect</span></span></a>' +
-    '<a class="idioma" href="' + T.otroHref + '" hreflang="' + (lang === "es" ? "en" : "es") + '">' + T.otroIdioma + "</a></div></header>" +
+    '<header class="cabecera"><div class="ancho"><a class="marca" href="' + RAIZ + (lang === "en" ? "en/" : "") + '"><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#101016"/><path d="M14 30 32 15l18 15v19H14z" fill="none" stroke="#e7b35c" stroke-width="4" stroke-linejoin="round"/><rect x="27" y="36" width="10" height="13" fill="#4da3ff"/></svg><span>Reyes <span class="oro">Connect</span></span></a>' +
+    '<a class="idioma" href="' + RAIZ + T.otroHref + '" hreflang="' + (lang === "es" ? "en" : "es") + '">' + T.otroIdioma + "</a></div></header>" +
     '<nav class="pasos" aria-label="Pasos"><div class="ancho"><ol>' +
-    T.pasos.map(function (p, i) { return '<li><button type="button" data-paso="' + (i + 1) + '"><span class="num">' + (i + 1) + "</span>" + p + "</button></li>"; }).join("") +
+    T.pasos.map(function (p, i) { return '<li><button type="button" data-paso="' + i + '"><span class="num">' + (i + 1) + '</span><span class="rot">' + p + "</span></button></li>"; }).join("") +
     "</ol></div></nav>" +
     '<main class="ancho">' +
-    // Paso 1
-    '<section class="pantalla" id="paso-1" aria-labelledby="t1">' +
-    '<p class="antetitulo">' + T.p1Ante + "</p><h1 id=\"t1\">" + TH.titulo + "</h1>" +
-    '<p class="entrada">' + T.p1Entrada + "</p>" +
-    '<div class="casa-portada">' + H.casaSVG(0.62, TH.casaTit) + "</div>" +
-    '<p class="leyenda"><span><i style="background:#e7b35c"></i>' + TH.casaLey[0] + '</span><span><i style="background:#4da3ff"></i>' + TH.casaLey[1] + "</span></p>" +
+    // Paso 0: la entrevista
+    '<section class="pantalla" id="paso-0" aria-labelledby="t0">' +
+    '<div class="saludo"><img class="astronauta" src="' + ASTRO_SRC + '" alt="" width="512" height="512">' +
+    '<div><p class="antetitulo">' + T.p0Ante + "</p><h1>" + TH.titulo + "</h1></div></div>" +
+    '<p class="entrada">' + T.p0Entrada + "</p>" +
+    '<h2 class="pregunta-momento" id="t0">' + T.p0Pregunta + "</h2>" +
+    '<div class="momentos" role="group" aria-labelledby="t0">' +
+    ORDEN.map(function (m) { return '<button type="button" data-momento="' + m + '" aria-pressed="false"><b>' + T.momento[m][0] + "</b><span>" + T.momento[m][1] + "</span></button>"; }).join("") +
+    "</div></section>" +
+    // Paso 1: registro
+    '<section class="pantalla" id="paso-1" aria-labelledby="t1" hidden>' +
+    '<p class="momento-elegido"><span id="momento-1"></span><button type="button" class="boton-texto" data-paso="0">' + T.cambiar + "</button></p>" +
+    '<h2 id="t1">' + T.p1Tit + "</h2>" +
+    '<p class="entrada" id="entrada-1"></p>' +
     '<p class="chico" style="margin:14px 0 0">' + T.registrarPorQue + "</p>" +
     '<form class="registro" id="form-registro" novalidate>' +
     '<div class="campo"><label for="r-nombre">' + T.nombre + '</label><div class="entrada-num"><input id="r-nombre" type="text" autocomplete="name" maxlength="80" required></div></div>' +
@@ -265,21 +344,20 @@
     '<button class="boton-texto" id="primero" type="button" style="margin-top:0">' + T.primero + "</button>" +
     '<p class="chico" style="margin-top:16px">' + T.privacidad + "</p>" +
     "</section>" +
-    // Paso 2
+    // Paso 2: la cuenta
     '<section class="pantalla" id="paso-2" aria-labelledby="t2" hidden>' +
     '<div class="aviso-ok" id="gracias" hidden>' + T.gracias + "</div>" +
-    '<p class="antetitulo" style="margin-top:14px">' + T.p2Ante + "</p><h2 id=\"t2\">" + TH.titulo + "</h2>" +
-    '<p class="entrada">' + TH.bajada + "</p>" +
-    '<button class="boton boton-linea" id="ejemplo" type="button" style="margin-top:16px">' + T.ejemplo + "</button>" +
+    '<p class="antetitulo" style="margin-top:14px" id="ante-2">' + T.p2Ante + "</p><h2 id=\"t2\">" + TH.titulo + "</h2>" +
+    '<p class="entrada" id="bajada-2"></p>' +
+    '<button class="boton boton-linea" id="ejemplo" type="button" style="margin-top:16px"></button>' +
     '<p class="aviso-suave" id="rot-ejemplo" hidden>' + T.ejemploRot + "</p>" +
     '<div id="formulario"></div>' +
     '<div class="resultado" id="resultado" aria-live="polite"></div>' +
-    '<p class="aviso-calculo">' + T.avisoCalc + "</p>" +
     '<div class="acciones"><button class="boton boton-miel" id="ir-hoja" type="button">' + T.miHoja + "</button></div>" +
     '<div class="barra-fija" id="barra" hidden><div class="ancho"><span class="hoy"><small>' + T.barraHoy + '</small><b id="barra-total"></b></span>' +
     '<button class="boton boton-miel" id="barra-hoja" type="button">' + T.miHoja + "</button></div></div>" +
     "</section>" +
-    // Paso 3
+    // Paso 3: la hoja
     '<section class="pantalla" id="paso-3" aria-labelledby="t3" hidden>' +
     '<p class="antetitulo">' + T.p3Ante + "</p><h2 id=\"t3\">" + T.p3Tit + "</h2>" +
     '<div id="hoja-caja"></div>' +
@@ -292,7 +370,7 @@
     '<p class="cierre-pregunta">' + T.cierrePregunta + "</p>" +
     '<div id="cierre-florida" hidden><p class="chico" id="et-cierre-florida">' + T.cierreFlorida + "</p>" +
     '<div class="botones-opcion" role="group" aria-labelledby="et-cierre-florida"><button type="button" data-cierre-florida="si">' + T.si + '</button><button type="button" data-cierre-florida="no">' + T.no + "</button></div></div>" +
-    '<div id="cierre-a" hidden><div class="acciones"><a class="boton boton-miel" id="cierre-wa" target="_blank" rel="noopener noreferrer" href="https://wa.me/' + WHATSAPP + "?text=" + encodeURIComponent(T.waTexto) + '">' + T.cierreA + "</a></div>" +
+    '<div id="cierre-a" hidden><div class="acciones"><a class="boton boton-miel" id="cierre-wa" target="_blank" rel="noopener noreferrer" href="#">' + T.cierreA + "</a></div>" +
     '<p class="chico cierre-nota">' + T.cierreANota + "</p>" +
     '<p class="chico cierre-licencia">' + T.licencia + "</p></div>" +
     '<p class="cierre-fuera" id="cierre-fuera" hidden>' + T.cierreFuera + "</p>" +
@@ -303,7 +381,7 @@
     "</section>" +
     "</main>" +
     '<footer class="pie"><div class="ancho">' +
-    "<p>" + T.avisoCalc + "</p><p>" + T.noDatos + "</p>" +
+    '<p class="nota">' + T.nota + "</p>" +
     '<p class="licencia">' + T.licencia + "</p><p>" + T.contacto + "</p></div></footer>";
 
   /* ---------- Pasos ---------- */
@@ -313,39 +391,68 @@
     estado.paso = n;
     guardar();
     if (n !== 3 && EN_APP && location.hash) { try { history.replaceState(history.state, "", location.pathname + location.search); } catch (e) {} }
-    [1, 2, 3].forEach(function (i) { $("#paso-" + i).hidden = i !== n; });
+    [0, 1, 2, 3].forEach(function (i) { $("#paso-" + i).hidden = i !== n; });
     document.querySelectorAll(".pasos button").forEach(function (b) {
       var i = +b.getAttribute("data-paso");
       if (i === n) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current");
-      b.classList.toggle("hecho", (i === 1 && !!estado.registro) || (i === 2 && n === 3));
+      b.classList.toggle("hecho", (i === 0 && !!momento()) || (i === 1 && !!estado.registro) || (i === 2 && n === 3));
     });
     if (n !== 2) { $("#barra").hidden = true; document.body.classList.remove("con-barra"); }
+    if (n === 0) pintarEntrevista();
+    if (n === 1) pintarRegistro();
     if (n === 2) pintarCuenta();
     if (n === 3) pintarHoja();
     $("#registro-otra").hidden = !!estado.registro || !!estado.seQueda;
     if (!sinSubir) window.scrollTo(0, 0);
   }
-  document.querySelector(".pasos").addEventListener("click", function (ev) {
-    var b = ev.target.closest("button[data-paso]");
+  document.addEventListener("click", function (ev) {
+    var b = ev.target.closest(".pasos button[data-paso], .momento-elegido button[data-paso]");
     if (b) irA(+b.getAttribute("data-paso"));
   });
   window.addEventListener("popstate", function (ev) {
     var n = ev.state && ev.state.paso;
-    if (n >= 1 && n <= 3) irA(n, false, true);
+    if (n >= 0 && n <= 3) irA(n, false, true);
+  });
+
+  /* ---------- Paso 0: la entrevista ---------- */
+  function pintarEntrevista() {
+    var m = momento();
+    document.querySelectorAll("button[data-momento]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-momento") === m)); });
+  }
+  function vacias(e) { return !(e.deuda || e.precio || e.entrada || e.gasto || e.otras || e.tiene || e.hijos); }
+  $("#paso-0").addEventListener("click", function (ev) {
+    var b = ev.target.closest("button[data-momento]");
+    if (!b) return;
+    var m = b.getAttribute("data-momento"), cfg = MOMENTOS[m], e = estado.entradas;
+    estado.momento = m;
+    // Personaliza lo que sigue: quien compra pone precio y entrada; quien aprende arranca con el ejemplo puesto.
+    if (cfg.compra && !e.compra) estado.entradas = H.vacioCompra();
+    else if (!cfg.compra && e.compra) estado.entradas = m === "aprender" ? H.ejemplo() : H.vacio();
+    else if (m === "aprender" && vacias(e)) estado.entradas = H.ejemplo();
+    estado.anio = 0;
+    guardar();
+    pintarEntrevista();
+    irA(estado.registro ? 2 : 1);
   });
 
   /* ---------- Paso 1: registro dentro de la página ----------
-     Va directo a /api/leads/mortgage-protection, que guarda el lead y el permiso (texto, versión, IP, navegador) en rc_consent.
-     Ese punto no tiene CORS: el envío es a ciegas y la respuesta no se puede leer. Por eso se dice «Registro enviado»,
-     nunca «confirmado». Nunca se piden ni se mandan seguro social, fecha de nacimiento, dirección, banco, tarjeta,
-     estatus migratorio ni los números de la cuenta. */
+     En reyesconnectapp.com va a /api/leads/mortgage-protection en la misma dirección y se lee la respuesta:
+     solo se dice «Registro enviado» si el servidor contestó que sí. En otro dominio se manda como en v1b (a ciegas).
+     La respuesta de la entrevista viaja en plazo y campana_id. Nunca se piden ni se mandan seguro social, fecha de
+     nacimiento, dirección, banco, tarjeta, estatus migratorio ni los números de la cuenta. */
+  function pintarRegistro() {
+    var m = momento();
+    $("#momento-1").textContent = m ? T.momento[m][0] : "";
+    $(".momento-elegido").hidden = !m;
+    $("#entrada-1").textContent = T.p1Entrada[m || "tengo"];
+  }
   var florida = null; // "si" | "no"; ninguno marcado al empezar
   $("#form-registro").addEventListener("click", function (ev) {
     var b = ev.target.closest("button[data-florida]");
     if (!b) return;
     florida = b.getAttribute("data-florida");
     document.querySelectorAll("button[data-florida]").forEach(function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
-    // Solo en este teléfono: decide qué camino enseña el cierre del paso 3. No cambia lo que manda el registro.
+    // Solo en este teléfono: decide qué camino enseña el cierre. No cambia lo que manda el registro.
     estado.florida = florida; guardar();
   });
   function telValido(t) {
@@ -380,6 +487,7 @@
     var v = validar();
     mostrarErrores(v.errores);
     if (v.errores.length) { var f = $(v.primero); if (f && f.focus) f.focus(); return; }
+    var m = momento();
     // Solo estos campos. Los vacíos no se mandan.
     var datos = { nombre: v.datos.nombre.slice(0, 80) };
     if (v.datos.telefono) datos.telefono = v.datos.telefono.slice(0, 20);
@@ -389,40 +497,53 @@
     datos.consent_servicio = true;
     datos.consent_promocional = false;
     datos.idioma = lang;
-    datos.campana_id = "calculo";
+    datos.campana_id = m ? MOMENTOS[m].campana : "calculo";
+    if (m && MOMENTOS[m].plazo) datos.plazo = MOMENTOS[m].plazo;
     datos.utm_source = "instagram";
     datos.utm_medium = "dm";
     datos.utm_campaign = "responsabilidad-decreciente";
     boton.disabled = true; boton.textContent = T.enviando;
-    function listo() {
+    function listo(leadId) {
       estado.registro = {
-        enviado: new Date().toISOString(), via: "pagina", campana: "calculo", idioma: lang,
-        consentimiento: PERMISO.version, textoPermiso: PERMISO[lang]
+        enviado: new Date().toISOString(), via: MISMA ? "misma-direccion" : "pagina", campana: datos.campana_id, idioma: lang,
+        consentimiento: PERMISO.version, textoPermiso: PERMISO[lang],
+        // El nombre de pila solo se guarda en este teléfono, para poner «Para: …» en la hoja.
+        nombrePila: v.datos.nombre.split(/\s+/)[0].slice(0, 30)
       };
+      if (MISMA) { estado.registro.confirmado = estado.registro.enviado; estado.registro.leadId = leadId == null ? null : leadId; }
       guardar();
       boton.disabled = false; boton.textContent = T.registrar;
       irA(2); $("#gracias").hidden = false;
     }
+    function fallo(msg) { boton.disabled = false; boton.textContent = T.registrar; mostrarErrores([msg]); }
     try {
-      fetch(CFG.registroApi, {
-        method: "POST", mode: "no-cors", keepalive: true,
-        headers: { "Content-Type": "text/plain" }, body: JSON.stringify(datos)
-      }).then(listo, function () {
-        boton.disabled = false; boton.textContent = T.registrar;
-        mostrarErrores([T.noEnvio]);
-      });
-    } catch (e) { boton.disabled = false; boton.textContent = T.registrar; mostrarErrores([T.noEnvio]); }
+      if (MISMA) {
+        fetch(API_MISMA, {
+          method: "POST", credentials: "same-origin",
+          headers: { "Content-Type": "application/json" }, body: JSON.stringify(datos)
+        }).then(function (r) {
+          return r.json().catch(function () { return null; }).then(function (j) {
+            if (r.ok && j && j.ok === true) listo(j.leadId); else fallo(T.noGuardo);
+          });
+        }, function () { fallo(T.noEnvio); });
+      } else {
+        fetch(CFG.registroApi, {
+          method: "POST", mode: "no-cors", keepalive: true,
+          headers: { "Content-Type": "text/plain" }, body: JSON.stringify(datos)
+        }).then(function () { listo(null); }, function () { fallo(T.noEnvio); });
+      }
+    } catch (e) { fallo(T.noEnvio); }
   });
   $("#registrar-2").addEventListener("click", function () { irA(1); });
   $("#primero").addEventListener("click", function () { irA(2); });
 
   // Despierta el servidor para que el registro no tarde: pide un ícono estático (no toca la base; no manda datos).
-  try { if (CFG.despertar) { var despierta = new Image(); despierta.src = CFG.despertar; } } catch (e) {}
+  try { if (CFG.despertar && !MISMA) { var despierta = new Image(); despierta.src = CFG.despertar; } } catch (e) {}
 
   /* ---------- Paso 2: la herramienta ---------- */
   var res = null;
   function recalcular() {
-    res = H.calcular(estado.entradas);
+    res = calc(estado.entradas);
     if (!res.falta && estado.anio > res.T) estado.anio = 0;
     var caja = $("#resultado");
     caja.alCambiarAnio = function (a) { estado.anio = a; guardar(); };
@@ -436,11 +557,15 @@
     guardar();
   }
   function pintarCuenta() {
+    var m = momento(), compra = !!estado.entradas.compra;
+    $("#ante-2").textContent = m ? T.momento[m][0] : T.p2Ante;
+    $("#bajada-2").textContent = compra ? TH.compra.bajada : TH.bajada;
+    $("#ejemplo").textContent = compra ? T.ejemploCompra : T.ejemplo;
     H.pintarFormulario($("#formulario"), estado.entradas, lang, recalcular);
     recalcular();
   }
   $("#ejemplo").addEventListener("click", function () {
-    estado.entradas = H.ejemplo();
+    estado.entradas = estado.entradas.compra ? H.ejemploCompra() : H.ejemplo();
     estado.anio = 0;
     pintarCuenta();
     // Que se vea que algo pasó: baja hasta las cifras.
@@ -455,17 +580,19 @@
   var lienzo = null;
   function pintarHoja() {
     var caja = $("#hoja-caja");
-    res = H.calcular(estado.entradas);
+    res = calc(estado.entradas);
     if (res.falta) {
-      caja.innerHTML = '<div class="aviso-suave">' + T.faltaHoja + '</div><div class="acciones"><button class="boton boton-linea" type="button" id="volver-2">' + T.pasos[1] + "</button></div>";
+      caja.innerHTML = '<div class="aviso-suave">' + T.faltaHoja + '</div><div class="acciones"><button class="boton boton-linea" type="button" id="volver-2">' + T.pasos[2] + "</button></div>";
       $("#volver-2").onclick = function () { irA(2); };
       $("#pdf").disabled = true;
       $("#en-app").hidden = true; $("#cierre").hidden = true; $("#compartir").hidden = true;
+      lienzo = null;
       return;
     }
-    // Opción de index.html: la hoja solo después del registro confirmado.
+    // Opción de index.html: la hoja solo después del registro.
     if (CFG.hojaSoloConRegistro && !estado.registro) {
-      caja.innerHTML = '<div class="aviso-suave">' + T.soloConRegistro + "</div>";
+      // Si llegó con sus números en el enlace (por ejemplo, desde Instagram al navegador), se le dice cómo sigue aquí.
+      caja.innerHTML = '<div class="aviso-suave" id="hoja-espera">' + (dePaso ? T.soloConRegistroEnlace : T.soloConRegistro) + "</div>";
       $("#pdf").disabled = true; $("#en-app").hidden = true; $("#caja-pdf").hidden = true; $("#estado-pdf").hidden = true;
       $("#cierre").hidden = true;
       lienzo = null;
@@ -473,27 +600,37 @@
     }
     $("#caja-pdf").hidden = false; $("#estado-pdf").hidden = false;
     $("#pdf").disabled = false;
-    lienzo = dibujarHoja(H.resumenHoja(res, lang), res.ejemplo);
+    lienzo = dibujarHoja(H.resumenHoja(res, lang, H.preparar ? estado.entradas : undefined), res.ejemplo);
     var url;
     try { url = lienzo.toDataURL("image/png"); } catch (e) { url = ""; }
     caja.innerHTML = '<p class="indicacion">' + T.indicacion + '</p><img class="hoja-img" id="hoja-img" alt="' + TH.titulo + '" src="' + url + '">';
     // Dentro de Instagram o Facebook no se promete descarga: sin botón de PDF, con la indicación del dedo.
-    // Los números se ponen en el # para que «Abrir en el navegador» los lleve.
+    // Los números (y el momento) se ponen en el # para que «Abrir en el navegador» los lleve.
     $("#en-app").hidden = !EN_APP;
     $("#pdf").hidden = EN_APP;
     $("#estado-pdf").textContent = EN_APP ? T.pdfEnApp : T.pdfAyuda;
     $("#compartir").hidden = !puedeCompartir();
     $("#compartir").className = EN_APP ? "boton boton-miel" : "boton boton-linea";
-    if (EN_APP && H.aHash) { try { history.replaceState(history.state, "", location.pathname + location.search + "#" + H.aHash(estado.entradas)); } catch (e) {} }
+    if (EN_APP && H.aHash) { try { history.replaceState(history.state, "", location.pathname + location.search + "#" + hashCompleto()); } catch (e) {} }
     pintarCierre();
+  }
+  function hashCompleto() {
+    var h = H.aHash ? H.aHash(estado.entradas) : "";
+    if (momento()) h += (h ? "&" : "") + "m=" + momento();
+    return h;
   }
 
   /* ---------- Cierre con decisión: habla la empresa ----------
-     A (solo si vive en Florida): WhatsApp del equipo en pestaña nueva, con el texto ya escrito. La persona escribe primero.
+     A (solo si vive en Florida): WhatsApp del equipo en pestaña nueva, con el texto ya escrito (incluye su momento).
      B: se queda con su hoja; se baja con la misma regla del botón de PDF. Nada de esto manda datos desde la página. */
+  function textoWa() {
+    var m = momento();
+    return T.waTexto + (m ? T.waY + T.momentoWa[m] : "") + ".";
+  }
   function pintarCierre() {
     var fl = estado.florida === "si" || estado.florida === "no" ? estado.florida : null;
     $("#cierre").hidden = false;
+    $("#cierre-wa").href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(textoWa());
     $("#cierre-florida").hidden = !!fl;
     $("#cierre-a").hidden = fl !== "si";
     $("#cierre-fuera").hidden = fl !== "no";
@@ -516,7 +653,7 @@
     pintarCierre();
   });
   function enlaceConNumeros() {
-    return location.origin + location.pathname + "#" + (H.aHash ? H.aHash(estado.entradas) : "");
+    return location.origin + location.pathname + "#" + hashCompleto();
   }
   $("#copiar-enlace").addEventListener("click", function () {
     var est = $("#estado-copia"), u = enlaceConNumeros();
@@ -543,18 +680,17 @@
     return yy;
   }
 
-  /* Carta a 150 ppp: 1275 × 1650. Papel blanco para que se imprima bien; banda de la casa arriba.
-     La letra de la tabla y de la nota final va grande para leerse en un teléfono de 720 de ancho.
-     Si con una familia grande no cabe, se prueba la misma hoja con la letra un poco menor (nunca por debajo
-     de la v1). Lo que sobra de alto se le da a la gráfica, así la licencia queda abajo y nada se sale del papel. */
+  /* Carta a 150 ppp: 1275 × 1650. Papel blanco para que se imprima bien; banda oscura arriba con el astronauta.
+     Debajo de la banda: «Para: <nombre de pila>» y su momento. Si con una familia grande no cabe, se prueba la misma
+     hoja con la letra un poco menor. Lo que sobra de alto se le da a la gráfica, así la licencia queda abajo. */
   var hojaInfo = null;
   function dibujarHoja(r, esEjemplo) {
     var LIMITE = 1650 - 48, escalas = [1, 0.94, 0.88, 0.82, 0.76], p = null;
     for (var i = 0; i < escalas.length; i++) {
       p = pintarHoja1(r, esEjemplo, escalas[i], 0);
-      if (p.fin <= LIMITE) { var q = pintarHoja1(r, esEjemplo, escalas[i], Math.min(LIMITE - p.fin, 520)); hojaInfo = { escala: q.escala, fin: q.fin }; return q.c; }
+      if (p.fin <= LIMITE) { var q = pintarHoja1(r, esEjemplo, escalas[i], Math.min(LIMITE - p.fin, 520)); hojaInfo = { escala: q.escala, fin: q.fin, astronauta: q.astronauta }; return q.c; }
     }
-    hojaInfo = { escala: p.escala, fin: p.fin };
+    hojaInfo = { escala: p.escala, fin: p.fin, astronauta: p.astronauta };
     return p.c;
   }
   function pintarHoja1(r, esEjemplo, s, extra) {
@@ -564,21 +700,36 @@
     function F(n) { return Math.round(n * s); }
     x.fillStyle = "#ffffff"; x.fillRect(0, 0, W, Hh);
     x.fillStyle = "#08080c"; x.fillRect(0, 0, W, 196);
+    // El astronauta, a la derecha de la banda, con un halo cian suave detrás.
+    var conAstro = false, AS = 186, ax = W - M - AS + 20, ay = 6;
+    if (astro.complete && astro.naturalWidth > 0) {
+      var halo = x.createRadialGradient(ax + AS / 2, ay + AS / 2, 10, ax + AS / 2, ay + AS / 2, AS / 2 + 6);
+      halo.addColorStop(0, "rgba(34,211,238,.28)"); halo.addColorStop(1, "rgba(34,211,238,0)");
+      x.fillStyle = halo; x.fillRect(ax - 10, 0, AS + 20, 196);
+      try { x.drawImage(astro, ax, ay, AS, AS); conAstro = true; } catch (e) {}
+    }
     var gr = x.createLinearGradient(0, 0, W, 0);
     gr.addColorStop(0, "#e7b35c"); gr.addColorStop(1, "#22d3ee");
     x.fillStyle = gr; x.fillRect(0, 192, W, 6);
     x.textBaseline = "alphabetic"; x.textAlign = "left";
     x.fillStyle = "#e7b35c"; x.font = "bold 30px " + S; x.fillText("REYES CONNECT", M, 72);
     x.fillStyle = "#f5eedf"; x.font = "bold 66px " + S; x.fillText(r.titulo, M, 150);
-    x.textAlign = "right"; x.fillStyle = "#cfc7b6"; x.font = "28px " + S; x.fillText(TT.fecha(new Date()), W - M, 72);
+    x.textAlign = "right"; x.fillStyle = "#cfc7b6"; x.font = "28px " + S; x.fillText(TT.fecha(new Date()), ax - 24, 72);
     x.textAlign = "left";
     var y = 256;
+    // Para quién es y en qué momento está.
+    var pila = estado.registro && estado.registro.nombrePila, m = momento();
+    if (pila || m) {
+      x.fillStyle = "#08080c"; x.font = "bold " + F(36) + "px " + S;
+      var linea = (pila ? TT.para + pila : "") + (pila && m ? " · " : "") + (m ? T.momentoLinea[m] : "");
+      y = envolver(x, linea, M, y, W - 2 * M, F(44)) - F(44) + F(56);
+    }
     if (esEjemplo) {
       x.fillStyle = "#fbf1de"; x.fillRect(M, y - 40, W - 2 * M, 58);
       x.fillStyle = "#8a5a00"; x.font = "bold " + F(32) + "px " + S; x.fillText(T.ejemploRot, M + 18, y);
       y += 62;
     }
-    // Tus números: cada fila se parte en dos líneas si no cabe (antes se cortaba con «…»).
+    // Tus números: cada fila se parte en dos líneas si no cabe.
     x.fillStyle = "#08080c"; x.font = "bold " + F(38) + "px " + S; x.fillText(TT.numeros, M, y); y += F(8);
     r.filas.forEach(function (f) {
       var lh = F(44);
@@ -613,11 +764,10 @@
     x.fillStyle = "#0e7f93"; x.font = "bold " + F(36) + "px " + S; x.fillText(TT.aprendisteTit, M, y); y += F(46);
     x.fillStyle = "#2a2a33"; x.font = F(33) + "px " + S;
     y = envolver(x, TT.aprendiste, M, y, W - 2 * M, F(42)) + F(8);
-    // Nota final
+    // Nota educativa corta y contacto
     x.fillStyle = "#8a5a00"; x.font = "bold " + F(31) + "px " + S;
     y = envolver(x, TT.aviso, M, y, W - 2 * M, F(39));
     x.fillStyle = "#2a2a33"; x.font = F(31) + "px " + S;
-    y = envolver(x, TT.tuTelefono, M, y, W - 2 * M, F(39));
     y = envolver(x, TT.pedir, M, y + 4, W - 2 * M, F(39));
     // Licencia, abajo
     y += F(8);
@@ -625,7 +775,7 @@
     y += F(44);
     x.fillStyle = "#55555f"; x.font = F(28) + "px " + S;
     y = envolver(x, T.licencia, M, y, W - 2 * M, F(36));
-    return { c: c, fin: y - F(36) + F(10), escala: s };
+    return { c: c, fin: y - F(36) + F(10), escala: s, astronauta: conAstro };
   }
 
   /* ---------- PDF sin librería: la hoja como imagen JPEG en una página carta ---------- */
@@ -702,9 +852,10 @@
 
   $("#borrar").addEventListener("click", function () {
     try { localStorage.removeItem(CLAVE); } catch (e) {}
-    var reg = estado.registro;
-    estado = { entradas: H.vacio(), paso: 1, anio: 0 };
-    if (reg) estado.registro = reg; // solo la marca de que abrió el registro, sin números
+    var reg = estado.registro, m = estado.momento, compra = !!estado.entradas.compra;
+    estado = { entradas: compra ? H.vacioCompra() : H.vacio(), paso: 0, anio: 0 };
+    if (reg) estado.registro = reg; // la marca del registro, sin números
+    if (m) estado.momento = m;
     lienzo = null;
     guardar();
     try { history.replaceState(history.state, "", location.pathname + location.search); } catch (e) {}
@@ -714,9 +865,8 @@
   });
 
   // Para pruebas locales (no envía nada): construye el PDF y lo devuelve en bytes.
-  window.RC.puerta = { estado: function () { return estado; }, hoja: function () { return hojaInfo; }, pdf: function () { if (!lienzo) pintarHoja(); return lienzo ? pdfDesdeLienzo(lienzo) : null; }, irA: irA };
+  window.RC.puerta = { estado: function () { return estado; }, hoja: function () { return hojaInfo; }, pdf: function () { if (!lienzo) pintarHoja(); return lienzo ? pdfDesdeLienzo(lienzo) : null; }, irA: irA, misma: MISMA, raiz: RAIZ };
 
   try { history.replaceState({ paso: estado.paso }, ""); } catch (e) {}
   irA(estado.paso, true, true);
-  if (volvioRegistrado) $("#gracias").hidden = false;
 })();
