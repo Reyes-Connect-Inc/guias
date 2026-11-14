@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Tu cuenta de hoy · Reyes Connect</title>
+  <meta name="description" content="Pon tus números y mira cómo baja, año por año, lo que tu familia tendría que cubrir si faltas. Cálculo educativo; no es una cotización.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#08080c">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" hreflang="en" href="en/">
+  <link rel="stylesheet" href="assets/estilos.css">
+</head>
+<body>
+  <div id="app">
+    <noscript><p style="padding:20px">Esta página necesita JavaScript para hacer tu cuenta en tu teléfono. Escríbenos LLAMADA por Instagram o al +1 786-835-2214.</p></noscript>
+  </div>
+  <script>
+    window.RC_PUERTA = {
+      lang: "es",
+      herramienta: "calculo",
+      // El registro del paso 1 va directo aquí (envío a ciegas; el texto del permiso y su versión viven en assets/cascaron.js).
+      registroApi: "https://reyesconnectapp.com/api/leads/mortgage-protection",
+      despertar: "https://reyesconnectapp.com/icon-192.png",
+      // true = la hoja sale solo después del registro enviado (o ?registrado=1). Lo decide Lázaro.
+      hojaSoloConRegistro: false
+    };
+  </script>
+  <script src="assets/herramientas/calculo.js"></script>
+  <script src="assets/cascaron.js"></script>
+</body>
+</html>
