@@ -79,15 +79,15 @@
   },
   {
    "palabra": "CALCULO",
-   "estado": "espera la prueba de Lázaro en el teléfono",
-   "nota": "Lleva a la página de registro, cuenta y hoja.",
+   "estado": "página arreglada y publicada el 14-nov; falta la prueba de abrir el enlace desde Instagram",
+   "nota": "Lleva a la página de registro, cuenta y hoja. El PDF ya se descarga. El cierre ofrece repasar la cuenta por el WhatsApp de la empresa o quedarse con la hoja.",
    "enlace": "https://reyes-connect-inc.github.io/guias/CALCULO/cuenta/",
    "imagenes": [
     "https://reyes-connect-inc.github.io/guias/CALCULO/guia-1.png",
     "https://reyes-connect-inc.github.io/guias/CALCULO/guia-2.png"
    ],
-   "mensaje_instagram": "Hola, ¿cómo estás? Te hablamos del equipo de Reyes Connect. Aquí está tu hoja para sacar tu cuenta: https://reyes-connect-inc.github.io/guias/CALCULO/cuenta/\n1. Te registras con tu nombre y un contacto.\n2. Pones tus números y ves cómo baja tu cuenta año por año.\n3. Te llevas tu hoja en PDF.\nTus números se quedan en tu teléfono.\nNo es una cotización ni una recomendación.\nNo nos mandes datos personales ni de salud por aquí; eso se ve en la llamada.\nReyes Connect Insurance · FL License #G298682 · NPN #22061550. No afiliado al gobierno.",
-   "mensaje_messenger": "Hola, ¿cómo estás? Te hablamos del equipo de Reyes Connect. Aquí está tu hoja para sacar tu cuenta: https://reyes-connect-inc.github.io/guias/CALCULO/cuenta/\n1. Te registras con tu nombre y un contacto.\n2. Pones tus números y ves cómo baja tu cuenta año por año.\n3. Te llevas tu hoja en PDF.\nTus números se quedan en tu teléfono.\nNo es una cotización ni una recomendación.\nNo nos mandes datos personales ni de salud por aquí; eso se ve en la llamada.\nReyes Connect Insurance · FL License #G298682 · NPN #22061550. No afiliado al gobierno."
+   "mensaje_instagram": "Hola, ¿cómo estás? Te hablamos del equipo de Reyes Connect. Aquí está tu hoja para sacar tu cuenta: https://reyes-connect-inc.github.io/guias/CALCULO/cuenta/\n1. Te registras con tu nombre y un contacto.\n2. Pones tus números y ves cómo baja tu cuenta año por año.\n3. Te llevas tu hoja en PDF.\nTus números se quedan en tu teléfono.\nNo es una cotización ni una recomendación.\nNo nos mandes datos personales ni de salud por aquí; eso se ve con un agente con licencia.\nReyes Connect Insurance · FL License #G298682 · NPN #22061550. No afiliado al gobierno.",
+   "mensaje_messenger": "Hola, ¿cómo estás? Te hablamos del equipo de Reyes Connect. Aquí está tu hoja para sacar tu cuenta: https://reyes-connect-inc.github.io/guias/CALCULO/cuenta/\n1. Te registras con tu nombre y un contacto.\n2. Pones tus números y ves cómo baja tu cuenta año por año.\n3. Te llevas tu hoja en PDF.\nTus números se quedan en tu teléfono.\nNo es una cotización ni una recomendación.\nNo nos mandes datos personales ni de salud por aquí; eso se ve con un agente con licencia.\nReyes Connect Insurance · FL License #G298682 · NPN #22061550. No afiliado al gobierno."
   }
  ]
 }
