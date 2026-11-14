@@ -1,10 +1,11 @@
 {
  "que_es": "Fuente única de las palabras de Reyes Connect. Muse, la app y Claude leen de aquí. Solo texto público.",
- "actualizado": "2026-11-14T02:56:21.531Z",
+ "actualizado": "2026-11-14",
  "reglas": [
   "Un solo mensaje por comentario, con el saludo de la casa.",
   "Si la persona acepta una conversación, se le pide solo día y hora; ningún dato personal por mensaje.",
-  "Una palabra se enciende solo cuando su estado aquí dice «encendida» o «con el sí de Lázaro»."
+  "Una palabra se enciende solo cuando su estado aquí dice «encendida» o «con el sí de Lázaro».",
+  "14-nov-2026: el mensaje solo lleva la oferta y los pasos. Sin advertencias ni líneas legales: eso vive en la guía y en la página. Sin nombres de personas: habla el equipo de Reyes Connect."
  ],
  "palabras": [
   {
@@ -16,8 +17,8 @@
     "https://reyes-connect-inc.github.io/guias/SALUD/guia-1.png",
     "https://reyes-connect-inc.github.io/guias/SALUD/guia-2.png"
    ],
-   "mensaje_instagram": "Aquí tienes tu guía SALUD (2 imágenes).\nLo clave del Mercado de salud 2027 (HealthCare.gov; no aplica a planes del trabajo):\n· Inscripción del 1-nov al 15-ene.\n· Hasta el 15-dic: tu protección empieza el 1-ene, siempre que pagues tu primera prima.\n· Del 16-dic al 15-ene: empieza el 1-feb, también si pagas tu primera prima.\n· Si ya tienes plan, se renueva solo; revísalo a más tardar el 15-dic.\nNo somos el gobierno; el sitio oficial es HealthCare.gov.\nNo nos mandes datos personales ni de salud por aquí; eso se ve en la llamada.\nReyes Connect Insurance · FL License #G298682 · NPN #22061550. No afiliado al gobierno.\n¿Quieres una llamada con Lázaro?",
-   "mensaje_messenger": "¡Hola! Te mando la guía SALUD en 2 imágenes.\nMercado de salud 2027, en corto (HealthCare.gov; no aplica a planes del trabajo):\n· La inscripción va del 1-nov al 15-ene.\n· Si te inscribes hasta el 15-dic, tu protección empieza el 1-ene, siempre que pagues tu primera prima.\n· Del 16-dic al 15-ene, empieza el 1-feb, también si pagas tu primera prima.\n· Si ya tienes plan, se renueva solo; revísalo a más tardar el 15-dic.\nNo somos el gobierno; el sitio oficial es HealthCare.gov.\nNo nos mandes datos personales ni de salud por aquí; eso se ve en la llamada.\nReyes Connect Insurance · FL License #G298682 · NPN #22061550. No afiliado al gobierno.\n¿Quieres una llamada con Lázaro?"
+   "mensaje_instagram": "Aquí tienes tu guía SALUD (2 imágenes).\nLo clave del Mercado de salud 2027 (HealthCare.gov; no aplica a planes del trabajo):\n· Inscripción del 1-nov al 15-ene.\n· Hasta el 15-dic: tu protección empieza el 1-ene, siempre que pagues tu primera prima.\n· Del 16-dic al 15-ene: empieza el 1-feb, también si pagas tu primera prima.\n· Si ya tienes plan, se renueva solo; revísalo a más tardar el 15-dic.\nSi quieres ver tus opciones con un agente con licencia, escríbenos por WhatsApp: https://wa.me/13059107614",
+   "mensaje_messenger": "¡Hola! Te mando la guía SALUD en 2 imágenes.\nMercado de salud 2027, en corto (HealthCare.gov; no aplica a planes del trabajo):\n· La inscripción va del 1-nov al 15-ene.\n· Si te inscribes hasta el 15-dic, tu protección empieza el 1-ene, siempre que pagues tu primera prima.\n· Del 16-dic al 15-ene, empieza el 1-feb, también si pagas tu primera prima.\n· Si ya tienes plan, se renueva solo; revísalo a más tardar el 15-dic.\nSi quieres ver tus opciones con un agente con licencia, escríbenos por WhatsApp: https://wa.me/13059107614"
   },
   {
    "palabra": "PAGINA",
@@ -39,8 +40,8 @@
     "https://reyes-connect-inc.github.io/guias/CARPETA/guia-1.png",
     "https://reyes-connect-inc.github.io/guias/CARPETA/guia-2.png"
    ],
-   "mensaje_instagram": "Aquí tienes «La carpeta de la familia»: 12 papeles para tener juntos y 3 pasos para revisar tus beneficiarios. Van en las 2 imágenes.\nLo más importante: que alguien de confianza sepa dónde está la carpeta.\nEs una idea práctica, no asesoría legal. Para testamentos y poderes, un abogado.\nNo nos mandes datos personales ni de salud por aquí; eso se ve en la llamada.\nReyes Connect Insurance · FL License #G298682 · NPN #22061550. No afiliado al gobierno.\n¿Quieres revisar tus beneficiarios en una llamada con Lázaro?",
-   "mensaje_messenger": "Gracias por escribirnos. Aquí va «La carpeta de la familia»: 12 papeles para tener juntos y 3 pasos para revisar tus beneficiarios, en las 2 imágenes.\nUn consejo: revísala una vez al año y dile a alguien de confianza dónde está.\nEs una idea práctica, no asesoría legal. Para testamentos y poderes, un abogado.\nNo nos mandes datos personales ni de salud por aquí; eso se ve en la llamada.\nReyes Connect Insurance · FL License #G298682 · NPN #22061550. No afiliado al gobierno.\n¿Quieres revisar tus beneficiarios en una llamada con Lázaro?"
+   "mensaje_instagram": "Aquí tienes «La carpeta de la familia»: 12 papeles para tener juntos y 3 pasos para revisar tus beneficiarios. Van en las 2 imágenes.\nLo más importante: que alguien de confianza sepa dónde está la carpeta.\nSi quieres revisar tus beneficiarios con un agente con licencia, escríbenos por WhatsApp: https://wa.me/13059107614",
+   "mensaje_messenger": "Gracias por escribirnos. Aquí va «La carpeta de la familia»: 12 papeles para tener juntos y 3 pasos para revisar tus beneficiarios, en las 2 imágenes.\nUn consejo: revísala una vez al año y dile a alguien de confianza dónde está.\nSi quieres revisar tus beneficiarios con un agente con licencia, escríbenos por WhatsApp: https://wa.me/13059107614"
   },
   {
    "palabra": "CASA",
@@ -51,8 +52,8 @@
     "https://reyes-connect-inc.github.io/guias/CASA/guia-1.png",
     "https://reyes-connect-inc.github.io/guias/CASA/guia-2.png"
    ],
-   "mensaje_instagram": "Aquí va tu guía del Homestead en Miami-Dade.\n1. Quién: eres dueño, vives en la casa como tu residencia permanente y eres ciudadano o residente permanente al 1 de enero de 2027.\n2. Hasta cuándo: hasta el 1 de marzo de 2027.\n3. Dónde: con el Tasador de Miami-Dade, en línea o en persona.\nSi pagas temprano el impuesto de tu casa: 4 % en noviembre, 3 % en diciembre, 2 % en enero y 1 % en febrero.\nNo es un préstamo. Esto es información general; tu caso lo confirma la oficina del Tasador.\n¿Quieres que te mandemos el enlace oficial para pedirla?",
-   "mensaje_messenger": "Gracias por escribirnos CASA. Aquí va tu guía del Homestead en Miami-Dade.\n1. Quién: eres dueño, vives en la casa como tu residencia permanente y eres ciudadano o residente permanente al 1 de enero de 2027.\n2. Hasta cuándo: hasta el 1 de marzo de 2027.\n3. Dónde: con el Tasador de Miami-Dade, en línea o en persona.\nSi pagas temprano el impuesto: 4 % en noviembre, 3 % en diciembre, 2 % en enero y 1 % en febrero.\nNo es un préstamo. Esto es información general; tu caso lo confirma la oficina del Tasador.\n¿Quieres que te mandemos el enlace oficial para pedirla?"
+   "mensaje_instagram": "Aquí va tu guía del Homestead en Miami-Dade.\n1. Quién: eres dueño, vives en la casa como tu residencia permanente y eres ciudadano o residente permanente al 1 de enero de 2027.\n2. Hasta cuándo: hasta el 1 de marzo de 2027.\n3. Dónde: con el Tasador de Miami-Dade, en línea o en persona.\nSi pagas temprano el impuesto de tu casa: 4 % en noviembre, 3 % en diciembre, 2 % en enero y 1 % en febrero.\n¿Quieres que te mandemos el enlace oficial para pedirla?",
+   "mensaje_messenger": "Gracias por escribirnos CASA. Aquí va tu guía del Homestead en Miami-Dade.\n1. Quién: eres dueño, vives en la casa como tu residencia permanente y eres ciudadano o residente permanente al 1 de enero de 2027.\n2. Hasta cuándo: hasta el 1 de marzo de 2027.\n3. Dónde: con el Tasador de Miami-Dade, en línea o en persona.\nSi pagas temprano el impuesto: 4 % en noviembre, 3 % en diciembre, 2 % en enero y 1 % en febrero.\n¿Quieres que te mandemos el enlace oficial para pedirla?"
   },
   {
    "palabra": "RESPALDO",
@@ -62,8 +63,8 @@
    "imagenes": [
     "https://reyes-connect-inc.github.io/guias/RESPALDO/guia-1.png"
    ],
-   "mensaje_instagram": "Aquí tienes las 7 preguntas (te dejo la imagen).\nLa idea clave es la regla 3-2-1: 3 copias de lo importante, en 2 tipos de soporte, y 1 fuera de tu local.\nY pruébala: abre un archivo desde la copia. Si no abre, no hay copia.\nNo me mandes contraseñas ni datos de clientes por aquí.\n¿Cuántas de las 7 contestaste con un «no»?",
-   "mensaje_messenger": "Gracias por escribir. Aquí tienes las 7 preguntas (va la imagen).\nLa idea clave es la regla 3-2-1: 3 copias de lo importante, en 2 tipos de soporte, y 1 fuera de tu local.\nY pruébala: abre un archivo desde la copia. Si no abre, no hay copia.\nNo nos mandes contraseñas ni datos de clientes por aquí.\n¿Cuántas de las 7 contestaste con un «no»?"
+   "mensaje_instagram": "Aquí tienes las 7 preguntas (te dejo la imagen).\nLa idea clave es la regla 3-2-1: 3 copias de lo importante, en 2 tipos de soporte, y 1 fuera de tu local.\nY pruébala: abre un archivo desde la copia. Si no abre, no hay copia.\n¿Cuántas de las 7 contestaste con un «no»?",
+   "mensaje_messenger": "Gracias por escribir. Aquí tienes las 7 preguntas (va la imagen).\nLa idea clave es la regla 3-2-1: 3 copias de lo importante, en 2 tipos de soporte, y 1 fuera de tu local.\nY pruébala: abre un archivo desde la copia. Si no abre, no hay copia.\n¿Cuántas de las 7 contestaste con un «no»?"
   },
   {
    "palabra": "LICENCIA",
@@ -74,8 +75,8 @@
     "https://reyes-connect-inc.github.io/guias/LICENCIA/guia-1.png",
     "https://reyes-connect-inc.github.io/guias/LICENCIA/guia-2.png"
    ],
-   "mensaje_instagram": "Aquí tienes LICENCIA: así es el camino a tu licencia de agente de vida y salud en Florida (2-15), paso a paso:\n1. 18 años o más, vivir en Florida, ser ciudadano o tener permiso de trabajo.\n2. Comienzas tu estudio: el curso oficial de 60 horas. Al unirte al equipo recibes gratis nuestra guía minuto a minuto.\n3. Solicitud en MyProfile: $50 + $5.\n4. Huellas: $52.50 + impuesto.\n5. Examen: $44, hay versión en español.\n6. Una compañía te nombra (lo tramita ella).\nAprendes, practicas con el equipo mientras estudias y te licencias para proteger familias, en una de las industrias más importantes de Estados Unidos, con un equipo que trabaja con lo último en tecnología.\n¿Quieres una llamada informativa con Lázaro? Ahí ves el camino completo.",
-   "mensaje_messenger": "Gracias por escribir LICENCIA. Así es el camino a tu licencia de agente de vida y salud en Florida (2-15), paso a paso:\n1. 18 años o más, vivir en Florida, ser ciudadano o tener permiso de trabajo.\n2. Comienzas tu estudio: el curso oficial de 60 horas. Al unirte al equipo recibes gratis nuestra guía minuto a minuto.\n3. Solicitud en MyProfile: $50 + $5.\n4. Huellas: $52.50 + impuesto.\n5. Examen: $44, hay versión en español.\n6. Una compañía te nombra (lo tramita ella).\nAprendes, practicas con el equipo mientras estudias y te licencias para proteger familias, en una de las industrias más importantes de Estados Unidos, con un equipo que trabaja con lo último en tecnología.\n¿Quieres una llamada informativa con Lázaro? Ahí ves el camino completo."
+   "mensaje_instagram": "Aquí tienes LICENCIA: así es el camino a tu licencia de agente de vida y salud en Florida (2-15), paso a paso:\n1. 18 años o más, vivir en Florida, ser ciudadano o tener permiso de trabajo.\n2. Comienzas tu estudio: el curso oficial de 60 horas. Al unirte al equipo recibes gratis nuestra guía minuto a minuto.\n3. Solicitud en MyProfile: $50 + $5.\n4. Huellas: $52.50 + impuesto.\n5. Examen: $44, hay versión en español.\n6. Una compañía te nombra (lo tramita ella).\nAprendes, practicas con el equipo mientras estudias y te licencias para proteger familias, en una de las industrias más importantes de Estados Unidos, con un equipo que trabaja con lo último en tecnología.\nSi quieres empezar, escríbenos por WhatsApp y te decimos el primer paso: https://wa.me/13059107614",
+   "mensaje_messenger": "Gracias por escribir LICENCIA. Así es el camino a tu licencia de agente de vida y salud en Florida (2-15), paso a paso:\n1. 18 años o más, vivir en Florida, ser ciudadano o tener permiso de trabajo.\n2. Comienzas tu estudio: el curso oficial de 60 horas. Al unirte al equipo recibes gratis nuestra guía minuto a minuto.\n3. Solicitud en MyProfile: $50 + $5.\n4. Huellas: $52.50 + impuesto.\n5. Examen: $44, hay versión en español.\n6. Una compañía te nombra (lo tramita ella).\nAprendes, practicas con el equipo mientras estudias y te licencias para proteger familias, en una de las industrias más importantes de Estados Unidos, con un equipo que trabaja con lo último en tecnología.\nSi quieres empezar, escríbenos por WhatsApp y te decimos el primer paso: https://wa.me/13059107614"
   },
   {
    "palabra": "CALCULO",
@@ -86,8 +87,8 @@
     "https://reyes-connect-inc.github.io/guias/CALCULO/guia-1.png",
     "https://reyes-connect-inc.github.io/guias/CALCULO/guia-2.png"
    ],
-   "mensaje_instagram": "Hola, ¿cómo estás? Te hablamos del equipo de Reyes Connect. Aquí está tu hoja para sacar tu cuenta: https://reyes-connect-inc.github.io/guias/CALCULO/cuenta/\n1. Te registras con tu nombre y un contacto.\n2. Pones tus números y ves cómo baja tu cuenta año por año.\n3. Te llevas tu hoja en PDF.\nTus números se quedan en tu teléfono.\nNo es una cotización ni una recomendación.\nNo nos mandes datos personales ni de salud por aquí; eso se ve con un agente con licencia.\nReyes Connect Insurance · FL License #G298682 · NPN #22061550. No afiliado al gobierno.",
-   "mensaje_messenger": "Hola, ¿cómo estás? Te hablamos del equipo de Reyes Connect. Aquí está tu hoja para sacar tu cuenta: https://reyes-connect-inc.github.io/guias/CALCULO/cuenta/\n1. Te registras con tu nombre y un contacto.\n2. Pones tus números y ves cómo baja tu cuenta año por año.\n3. Te llevas tu hoja en PDF.\nTus números se quedan en tu teléfono.\nNo es una cotización ni una recomendación.\nNo nos mandes datos personales ni de salud por aquí; eso se ve con un agente con licencia.\nReyes Connect Insurance · FL License #G298682 · NPN #22061550. No afiliado al gobierno."
+   "mensaje_instagram": "Hola, ¿cómo estás? Te hablamos del equipo de Reyes Connect. Aquí está tu hoja para sacar tu cuenta: https://reyes-connect-inc.github.io/guias/CALCULO/cuenta/\n1. Te registras con tu nombre y un contacto.\n2. Pones tus números y ves cómo baja tu cuenta año por año.\n3. Te llevas tu hoja en PDF.",
+   "mensaje_messenger": "Hola, ¿cómo estás? Te hablamos del equipo de Reyes Connect. Aquí está tu hoja para sacar tu cuenta: https://reyes-connect-inc.github.io/guias/CALCULO/cuenta/\n1. Te registras con tu nombre y un contacto.\n2. Pones tus números y ves cómo baja tu cuenta año por año.\n3. Te llevas tu hoja en PDF."
   }
  ]
 }
