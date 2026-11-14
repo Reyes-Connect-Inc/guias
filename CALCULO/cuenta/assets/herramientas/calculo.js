@@ -438,7 +438,7 @@
       titulo: t.titulo,
       filas: filas,
       totales: res.hitos.map(function (m) { return [etiquetaHito(m, res, t), usd(m.valor)]; }),
-      altoMinimo: res.k * 44 + 190,
+      altoMinimo: res.k * 52 + 200,
       dibujar: function (ctx, x, y, w, h) { graficaCanvas(ctx, x, y, w, h, res, t); }
     };
   }
@@ -450,16 +450,16 @@
     ctx.textBaseline = "alphabetic";
     // Barras por hijo (años)
     var yb = y + 8, maxA = Math.max(1, res.A);
-    ctx.font = "bold 22px Helvetica, Arial, sans-serif";
+    ctx.font = "bold 27px Helvetica, Arial, sans-serif";
     res.hijos.forEach(function (hj) {
       var r = t.hijoRot(hj, hj.anios);
-      ctx.fillStyle = "#1b1b22"; ctx.fillText(r[0] + " · " + r[1], izq, yb + 18);
-      ctx.fillStyle = "#ececf0"; ctx.fillRect(izq, yb + 26, ww, 12);
-      ctx.fillStyle = MIEL; ctx.fillRect(izq, yb + 26, ww * hj.anios / maxA, 12);
-      yb += 44;
+      ctx.fillStyle = "#1b1b22"; ctx.fillText(r[0] + " · " + r[1], izq, yb + 22);
+      ctx.fillStyle = "#ececf0"; ctx.fillRect(izq, yb + 32, ww, 12);
+      ctx.fillStyle = MIEL; ctx.fillRect(izq, yb + 32, ww * hj.anios / maxA, 12);
+      yb += 52;
     });
     // Línea del total
-    var gy = yb + 12, gh = y + h - gy - 30, max = 1;
+    var gy = yb + 12, gh = y + h - gy - 36, max = 1;
     if (gh < 80) gh = 80;
     res.serie.forEach(function (p) { if (p.total > max) max = p.total; });
     function X(tt) { return izq + ww * tt / res.T; }
@@ -474,9 +474,9 @@
     ctx.beginPath();
     res.serie.forEach(function (p, i) { if (i) ctx.lineTo(X(p.t), Y(p.total)); else ctx.moveTo(X(p.t), Y(p.total)); });
     ctx.stroke();
-    ctx.font = "20px Helvetica, Arial, sans-serif"; ctx.fillStyle = "#55555f";
-    ctx.textAlign = "left"; ctx.fillText(t.anio + " 0", izq, Y(0) + 26);
-    ctx.textAlign = "right"; ctx.fillText(t.anio + " " + res.T, izq + ww, Y(0) + 26);
+    ctx.font = "25px Helvetica, Arial, sans-serif"; ctx.fillStyle = "#55555f";
+    ctx.textAlign = "left"; ctx.fillText(t.anio + " 0", izq, Y(0) + 30);
+    ctx.textAlign = "right"; ctx.fillText(t.anio + " " + res.T, izq + ww, Y(0) + 30);
     ctx.textAlign = "left";
     res.hitos.forEach(function (m) {
       if (m.t > res.T) return;

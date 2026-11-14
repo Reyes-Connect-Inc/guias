@@ -35,7 +35,7 @@
       p1Ante: "Comentaste CALCULO",
       p1Entrada: "Tres pasos, en este mismo teléfono. Tu hoja te la llevas al final.",
       registrar: "Regístrate",
-      registrarPorQue: "Así Lázaro, el agente con licencia, puede repasar tu cuenta contigo si lo pides.",
+      registrarPorQue: "Así un agente con licencia del equipo de Reyes Connect puede repasar tu cuenta contigo si lo pides.",
       nombre: "Tu nombre",
       tel: "Teléfono o WhatsApp",
       correo: "Correo",
@@ -66,26 +66,37 @@
       faltaHoja: "Primero pon tus números en el paso 2.",
       p3Ante: "Paso 3",
       p3Tit: "Tu hoja",
-      indicacion: "Mantén el dedo sobre la hoja para guardarla en tus fotos.",
+      indicacion: "Mantén el dedo sobre la hoja para guardarla.",
       pdf: "Descargar PDF",
-      pdfAyuda: "Si no ves el archivo, guarda la imagen con el dedo.",
-      pdfListo: "Listo. Si no ves el archivo, guarda la imagen con el dedo.",
-      pdfNo: "Este navegador no deja bajar el archivo. Guarda la imagen con el dedo.",
-      enApp: "Estás dentro de Instagram. Aquí lo seguro es guardar la imagen con el dedo. Para el PDF, abre la página en tu navegador:",
+      compartir: "Compartir",
+      pdfAyuda: "El PDF se baja a tu teléfono. Si no lo ves, mantén el dedo sobre la hoja para guardarla.",
+      pdfBajando: "Bajando el PDF. Si no lo ves en tus descargas, mantén el dedo sobre la hoja para guardarla.",
+      pdfPestana: "El PDF se abrió en otra pestaña. Guárdalo desde ahí, o mantén el dedo sobre la hoja.",
+      compartirListo: "Listo.",
+      pdfNo: "Este navegador no deja bajar el archivo. Mantén el dedo sobre la hoja para guardarla.",
+      pdfEnApp: "Aquí dentro, mantén el dedo sobre la hoja para guardarla.",
+      enApp: "Estás dentro de Instagram o Facebook. Aquí no se puede bajar el archivo: mantén el dedo sobre la hoja para guardarla. Para el PDF, abre la página en tu navegador:",
       abrirNav: "Copiar el enlace con mis números",
       abrirNavAyuda: "O toca ••• arriba y elige «Abrir en el navegador». Tus números van en el enlace, después del #, y esa parte no nos llega.",
       copiado: "Copiado. Abre Safari o Chrome y pega el enlace.",
       noCopiado: "No se pudo copiar. Toca ••• arriba y elige «Abrir en el navegador».",
       barraHoy: "Hoy",
-      llamadaTit: "¿Quieres repasar tu cuenta con Lázaro?",
-      llamada: "Escríbenos LLAMADA por mensaje directo en Instagram.",
+      cierreTit: "Tu hoja ya es tuya.",
+      cierrePregunta: "¿Qué quieres hacer ahora?",
+      cierreFlorida: "Para enseñarte el camino que te toca: ¿vives en Florida?",
+      cierreA: "Repasarla con un agente con licencia",
+      cierreANota: "Se abre WhatsApp con el equipo de Reyes Connect. Tú escribes primero: nadie te llama sin que lo pidas.",
+      cierreFuera: "Nuestra licencia es de Florida. Para tu estado te conviene un agente con licencia allí. Tu hoja es tuya igual.",
+      cierreB: "Me quedo con mi hoja",
+      cierreListo: "Listo. Tu hoja es tuya. Nadie te va a escribir por esto.",
+      waTexto: "Hola. Hice mi cuenta en la página de Reyes Connect y quiero repasarla con un agente con licencia.",
       registrarOtra: "¿Aún no te registras?",
       borrar: "Borrar mis números de este teléfono",
       borrado: "Listo. Se borraron de este teléfono.",
-      avisoCalc: "Este es un cálculo educativo con tus propios números. No es una cotización, ni una oferta, ni una recomendación de producto o de monto. No promete nada. Tu cuenta cambia cuando cambia tu vida. Para ver qué te conviene, habla con un agente con licencia.",
-      noDatos: "No nos mandes datos personales ni de salud por mensaje; eso se ve en la llamada.",
-      licencia: "Reyes Connect Insurance · Lázaro Reyes, agente de seguros de vida y salud con licencia en Florida · FL License #G298682 · NPN #22061550. No afiliado al gobierno.",
-      contacto: "hello@reyesconnectapp.com · +1 786-835-2214",
+      avisoCalc: "Este es un cálculo educativo con tus propios números. No es una cotización, ni una oferta, ni una recomendación de producto o de monto. Tu cuenta cambia cuando cambia tu vida. Para ver qué te conviene, habla con un agente con licencia.",
+      noDatos: "No nos mandes datos personales ni de salud por mensaje; eso se habla con el agente con licencia.",
+      licencia: "Reyes Connect Insurance · FL License #G298682 · NPN #22061550. No afiliado al gobierno.",
+      contacto: "hello@reyesconnectapp.com · WhatsApp +1 305-910-7614",
       otroIdioma: "English", otroHref: "en/",
       hoja: {
         fecha: function (d) { return d.toLocaleDateString("es-US", { day: "numeric", month: "long", year: "numeric" }); },
@@ -96,7 +107,7 @@
         aprendiste: "Lo que tu familia tendría que cubrir si faltas baja cada año. Tu cuenta se saca con los números de hoy. Revisa tu cuenta cuando cambie tu vida.",
         aviso: "Cálculo educativo con tus propios números. No es una cotización ni una recomendación.",
         tuTelefono: "Estos números se hicieron en tu teléfono; no nos llegaron.",
-        pedir: "¿Quieres repasarla con Lázaro? Escribe LLAMADA en el chat de Instagram de Reyes Connect, por WhatsApp al +1 786-835-2214, o a hello@reyesconnectapp.com.",
+        pedir: "Para repasarla con un agente con licencia en Florida: equipo de Reyes Connect, WhatsApp +1 305-910-7614 o hello@reyesconnectapp.com.",
         archivo: "mi-cuenta-de-hoy.pdf"
       }
     },
@@ -105,7 +116,7 @@
       p1Ante: "You commented CALCULO",
       p1Entrada: "Three steps, right on this phone. You keep your sheet at the end.",
       registrar: "Sign up",
-      registrarPorQue: "That way Lázaro, the licensed agent, can go over your number with you if you ask.",
+      registrarPorQue: "That way a licensed agent on the Reyes Connect team can go over your number with you if you ask.",
       nombre: "Your name",
       tel: "Phone or WhatsApp",
       correo: "Email",
@@ -136,26 +147,37 @@
       faltaHoja: "First enter your numbers in step 2.",
       p3Ante: "Step 3",
       p3Tit: "Your sheet",
-      indicacion: "Press and hold the sheet to save it to your photos.",
+      indicacion: "Press and hold the sheet to save it.",
       pdf: "Download PDF",
-      pdfAyuda: "If you don't see the file, save the image by pressing and holding it.",
-      pdfListo: "Done. If you don't see the file, save the image by pressing and holding it.",
-      pdfNo: "This browser won't download the file. Save the image by pressing and holding it.",
-      enApp: "You're inside Instagram. The safe way here is to save the image by pressing and holding it. For the PDF, open the page in your browser:",
+      compartir: "Share",
+      pdfAyuda: "The PDF downloads to your phone. If you don't see it, press and hold the sheet to save it.",
+      pdfBajando: "Downloading the PDF. If you don't see it in your downloads, press and hold the sheet to save it.",
+      pdfPestana: "The PDF opened in another tab. Save it from there, or press and hold the sheet.",
+      compartirListo: "Done.",
+      pdfNo: "This browser won't download the file. Press and hold the sheet to save it.",
+      pdfEnApp: "In here, press and hold the sheet to save it.",
+      enApp: "You're inside Instagram or Facebook. The file can't be downloaded in here: press and hold the sheet to save it. For the PDF, open the page in your browser:",
       abrirNav: "Copy the link with my numbers",
       abrirNavAyuda: "Or tap ••• at the top and choose «Open in browser». Your numbers travel in the link, after the #, and that part does not reach us.",
       copiado: "Copied. Open Safari or Chrome and paste the link.",
       noCopiado: "Couldn't copy. Tap ••• at the top and choose «Open in browser».",
       barraHoy: "Today",
-      llamadaTit: "Want to go over your number with Lázaro?",
-      llamada: "Send us LLAMADA by direct message on Instagram.",
+      cierreTit: "Your sheet is yours now.",
+      cierrePregunta: "What do you want to do now?",
+      cierreFlorida: "To show you the path that fits you: do you live in Florida?",
+      cierreA: "Go over it with a licensed agent",
+      cierreANota: "WhatsApp opens with the Reyes Connect team. You write first: no one calls you unless you ask.",
+      cierreFuera: "Our license is in Florida. For your state, a licensed agent there is the better fit. Your sheet is still yours.",
+      cierreB: "I'll keep my sheet",
+      cierreListo: "Done. Your sheet is yours. No one will message you about this.",
+      waTexto: "Hi. I ran my numbers on the Reyes Connect page and I would like to go over them with a licensed agent.",
       registrarOtra: "Haven't signed up yet?",
       borrar: "Delete my numbers from this phone",
       borrado: "Done. They were deleted from this phone.",
-      avisoCalc: "This is an educational calculation using your own numbers. It is not a quote, an offer, or a recommendation of any product or amount. It promises nothing. Your number changes when your life changes. To see what fits you, talk to a licensed agent.",
-      noDatos: "Please don't send personal or health details by message; we cover that on the call.",
-      licencia: "Reyes Connect Insurance · Lázaro Reyes, licensed life and health insurance agent in Florida · FL License #G298682 · NPN #22061550. Not affiliated with the government.",
-      contacto: "hello@reyesconnectapp.com · +1 786-835-2214",
+      avisoCalc: "This is an educational calculation using your own numbers. It is not a quote, an offer, or a recommendation of any product or amount. Your number changes when your life changes. To see what fits you, talk to a licensed agent.",
+      noDatos: "Please don't send personal or health details by message; that is covered with the licensed agent.",
+      licencia: "Reyes Connect Insurance · FL License #G298682 · NPN #22061550. Not affiliated with the government.",
+      contacto: "hello@reyesconnectapp.com · WhatsApp +1 305-910-7614",
       otroIdioma: "Español", otroHref: "../",
       hoja: {
         fecha: function (d) { return d.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" }); },
@@ -166,7 +188,7 @@
         aprendiste: "What your family would have to cover if you were gone goes down every year. Your number is run with today's numbers. Review your number when your life changes.",
         aviso: "Educational calculation using your own numbers. Not a quote or a recommendation.",
         tuTelefono: "These numbers were made on your phone; they did not reach us.",
-        pedir: "Want to go over it with Lázaro? Send LLAMADA in the Reyes Connect Instagram chat, on WhatsApp at +1 786-835-2214, or email hello@reyesconnectapp.com.",
+        pedir: "To go over it with a licensed agent in Florida: the Reyes Connect team, WhatsApp +1 305-910-7614 or hello@reyesconnectapp.com.",
         archivo: "todays-number.pdf"
       }
     }
@@ -184,7 +206,8 @@
   if (estado.registro && !estado.registro.confirmado && !estado.registro.enviado) { estado.abrioRegistro = estado.registro.abierto; delete estado.registro; }
 
   // Dentro de Instagram o Facebook las descargas casi nunca funcionan: no se promete el PDF.
-  var EN_APP = /Instagram|FBAN|FBAV|FB_IAB|FBIOS|FB4A/i.test(navigator.userAgent || "");
+  var EN_APP = /Instagram|FBAN|FBAV|FB_IAB/i.test(navigator.userAgent || "");
+  var WHATSAPP = "13059107614"; // el WhatsApp del equipo de Reyes Connect (botón A del cierre)
 
   // Números que llegan en el # (desde «Abrir en el navegador» o un enlace copiado). El # no viaja al servidor.
   var dePaso = null;
@@ -262,15 +285,25 @@
     '<div id="hoja-caja"></div>' +
     '<div class="tarjeta" id="en-app" hidden><p style="margin:0">' + T.enApp + '</p><div class="acciones"><button class="boton boton-linea" id="copiar-enlace" type="button">' + T.abrirNav + "</button></div>" +
     '<p class="chico" id="estado-copia">' + T.abrirNavAyuda + "</p></div>" +
-    '<div class="acciones" id="caja-pdf"><button class="boton boton-miel" id="pdf" type="button">' + T.pdf + "</button></div>" +
+    '<div class="acciones" id="caja-pdf"><button class="boton boton-miel" id="pdf" type="button">' + T.pdf + "</button>" +
+    '<button class="boton boton-linea" id="compartir" type="button" hidden>' + T.compartir + "</button></div>" +
     '<p class="estado-pdf" id="estado-pdf">' + T.pdfAyuda + "</p>" +
-    '<div class="tarjeta"><h3>' + T.llamadaTit + "</h3><p>" + T.llamada + "</p></div>" +
+    '<section class="tarjeta cierre" id="cierre" aria-labelledby="t-cierre"><h3 id="t-cierre">' + T.cierreTit + "</h3>" +
+    '<p class="cierre-pregunta">' + T.cierrePregunta + "</p>" +
+    '<div id="cierre-florida" hidden><p class="chico" id="et-cierre-florida">' + T.cierreFlorida + "</p>" +
+    '<div class="botones-opcion" role="group" aria-labelledby="et-cierre-florida"><button type="button" data-cierre-florida="si">' + T.si + '</button><button type="button" data-cierre-florida="no">' + T.no + "</button></div></div>" +
+    '<div id="cierre-a" hidden><div class="acciones"><a class="boton boton-miel" id="cierre-wa" target="_blank" rel="noopener noreferrer" href="https://wa.me/' + WHATSAPP + "?text=" + encodeURIComponent(T.waTexto) + '">' + T.cierreA + "</a></div>" +
+    '<p class="chico cierre-nota">' + T.cierreANota + "</p>" +
+    '<p class="chico cierre-licencia">' + T.licencia + "</p></div>" +
+    '<p class="cierre-fuera" id="cierre-fuera" hidden>' + T.cierreFuera + "</p>" +
+    '<div class="acciones"><button class="boton boton-linea" id="cierre-b" type="button">' + T.cierreB + "</button></div>" +
+    '<div class="aviso-ok" id="cierre-listo" role="status" hidden>' + T.cierreListo + "</div></section>" +
     '<div class="tarjeta" id="registro-otra" hidden><h3>' + T.registrarOtra + '</h3><div class="acciones"><button class="boton boton-miel" id="registrar-2" type="button">' + T.registrar + "</button></div></div>" +
     '<button class="boton-texto" id="borrar" type="button">' + T.borrar + "</button>" +
     "</section>" +
     "</main>" +
     '<footer class="pie"><div class="ancho">' +
-    "<p>" + T.avisoCalc + "</p><p>" + T.privacidad + "</p><p>" + T.noDatos + "</p>" +
+    "<p>" + T.avisoCalc + "</p><p>" + T.noDatos + "</p>" +
     '<p class="licencia">' + T.licencia + "</p><p>" + T.contacto + "</p></div></footer>";
 
   /* ---------- Pasos ---------- */
@@ -289,7 +322,7 @@
     if (n !== 2) { $("#barra").hidden = true; document.body.classList.remove("con-barra"); }
     if (n === 2) pintarCuenta();
     if (n === 3) pintarHoja();
-    $("#registro-otra").hidden = !!estado.registro;
+    $("#registro-otra").hidden = !!estado.registro || !!estado.seQueda;
     if (!sinSubir) window.scrollTo(0, 0);
   }
   document.querySelector(".pasos").addEventListener("click", function (ev) {
@@ -312,6 +345,8 @@
     if (!b) return;
     florida = b.getAttribute("data-florida");
     document.querySelectorAll("button[data-florida]").forEach(function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+    // Solo en este teléfono: decide qué camino enseña el cierre del paso 3. No cambia lo que manda el registro.
+    estado.florida = florida; guardar();
   });
   function telValido(t) {
     var d = t.replace(/\D/g, "");
@@ -425,13 +460,14 @@
       caja.innerHTML = '<div class="aviso-suave">' + T.faltaHoja + '</div><div class="acciones"><button class="boton boton-linea" type="button" id="volver-2">' + T.pasos[1] + "</button></div>";
       $("#volver-2").onclick = function () { irA(2); };
       $("#pdf").disabled = true;
-      $("#en-app").hidden = true;
+      $("#en-app").hidden = true; $("#cierre").hidden = true; $("#compartir").hidden = true;
       return;
     }
-    // Opción que decide Lázaro (index.html): la hoja solo después del registro confirmado.
+    // Opción de index.html: la hoja solo después del registro confirmado.
     if (CFG.hojaSoloConRegistro && !estado.registro) {
       caja.innerHTML = '<div class="aviso-suave">' + T.soloConRegistro + "</div>";
       $("#pdf").disabled = true; $("#en-app").hidden = true; $("#caja-pdf").hidden = true; $("#estado-pdf").hidden = true;
+      $("#cierre").hidden = true;
       lienzo = null;
       return;
     }
@@ -441,11 +477,44 @@
     var url;
     try { url = lienzo.toDataURL("image/png"); } catch (e) { url = ""; }
     caja.innerHTML = '<p class="indicacion">' + T.indicacion + '</p><img class="hoja-img" id="hoja-img" alt="' + TH.titulo + '" src="' + url + '">';
-    // Dentro de Instagram: los números se ponen en el # para que «Abrir en el navegador» los lleve.
+    // Dentro de Instagram o Facebook no se promete descarga: sin botón de PDF, con la indicación del dedo.
+    // Los números se ponen en el # para que «Abrir en el navegador» los lleve.
     $("#en-app").hidden = !EN_APP;
-    $("#pdf").className = EN_APP ? "boton boton-linea" : "boton boton-miel";
+    $("#pdf").hidden = EN_APP;
+    $("#estado-pdf").textContent = EN_APP ? T.pdfEnApp : T.pdfAyuda;
+    $("#compartir").hidden = !puedeCompartir();
+    $("#compartir").className = EN_APP ? "boton boton-miel" : "boton boton-linea";
     if (EN_APP && H.aHash) { try { history.replaceState(history.state, "", location.pathname + location.search + "#" + H.aHash(estado.entradas)); } catch (e) {} }
+    pintarCierre();
   }
+
+  /* ---------- Cierre con decisión: habla la empresa ----------
+     A (solo si vive en Florida): WhatsApp del equipo en pestaña nueva, con el texto ya escrito. La persona escribe primero.
+     B: se queda con su hoja; se baja con la misma regla del botón de PDF. Nada de esto manda datos desde la página. */
+  function pintarCierre() {
+    var fl = estado.florida === "si" || estado.florida === "no" ? estado.florida : null;
+    $("#cierre").hidden = false;
+    $("#cierre-florida").hidden = !!fl;
+    $("#cierre-a").hidden = fl !== "si";
+    $("#cierre-fuera").hidden = fl !== "no";
+    $("#cierre-b").className = fl === "si" ? "boton boton-linea" : "boton boton-miel";
+    $("#cierre-listo").hidden = !estado.seQueda;
+    $("#registro-otra").hidden = !!estado.registro || !!estado.seQueda;
+  }
+  $("#cierre").addEventListener("click", function (ev) {
+    var b = ev.target.closest("button[data-cierre-florida]");
+    if (!b) return;
+    estado.florida = b.getAttribute("data-cierre-florida");
+    guardar();
+    pintarCierre();
+  });
+  $("#cierre-b").addEventListener("click", function () {
+    estado.seQueda = true; guardar();
+    if (!EN_APP) bajarPdf();
+    var listo = $("#cierre-listo");
+    listo.textContent = EN_APP ? T.cierreListo + " " + T.indicacion : T.cierreListo;
+    pintarCierre();
+  });
   function enlaceConNumeros() {
     return location.origin + location.pathname + "#" + (H.aHash ? H.aHash(estado.entradas) : "");
   }
@@ -474,74 +543,89 @@
     return yy;
   }
 
-  /* Carta a 150 ppp: 1275 × 1650. Papel blanco para que se imprima bien; banda de la casa arriba. */
+  /* Carta a 150 ppp: 1275 × 1650. Papel blanco para que se imprima bien; banda de la casa arriba.
+     La letra de la tabla y de la nota final va grande para leerse en un teléfono de 720 de ancho.
+     Si con una familia grande no cabe, se prueba la misma hoja con la letra un poco menor (nunca por debajo
+     de la v1). Lo que sobra de alto se le da a la gráfica, así la licencia queda abajo y nada se sale del papel. */
+  var hojaInfo = null;
   function dibujarHoja(r, esEjemplo) {
-    var W = 1275, Hh = 1650, M = 80, c = document.createElement("canvas");
+    var LIMITE = 1650 - 48, escalas = [1, 0.94, 0.88, 0.82, 0.76], p = null;
+    for (var i = 0; i < escalas.length; i++) {
+      p = pintarHoja1(r, esEjemplo, escalas[i], 0);
+      if (p.fin <= LIMITE) { var q = pintarHoja1(r, esEjemplo, escalas[i], Math.min(LIMITE - p.fin, 520)); hojaInfo = { escala: q.escala, fin: q.fin }; return q.c; }
+    }
+    hojaInfo = { escala: p.escala, fin: p.fin };
+    return p.c;
+  }
+  function pintarHoja1(r, esEjemplo, s, extra) {
+    var W = 1275, Hh = 1650, M = 72, c = document.createElement("canvas");
     c.width = W; c.height = Hh;
     var x = c.getContext("2d"), S = "Helvetica, Arial, sans-serif", TT = T.hoja;
+    function F(n) { return Math.round(n * s); }
     x.fillStyle = "#ffffff"; x.fillRect(0, 0, W, Hh);
-    x.fillStyle = "#08080c"; x.fillRect(0, 0, W, 210);
+    x.fillStyle = "#08080c"; x.fillRect(0, 0, W, 196);
     var gr = x.createLinearGradient(0, 0, W, 0);
     gr.addColorStop(0, "#e7b35c"); gr.addColorStop(1, "#22d3ee");
-    x.fillStyle = gr; x.fillRect(0, 206, W, 6);
+    x.fillStyle = gr; x.fillRect(0, 192, W, 6);
     x.textBaseline = "alphabetic"; x.textAlign = "left";
-    x.fillStyle = "#e7b35c"; x.font = "bold 30px " + S; x.fillText("REYES CONNECT", M, 78);
-    x.fillStyle = "#f5eedf"; x.font = "bold 66px " + S; x.fillText(r.titulo, M, 160);
-    x.textAlign = "right"; x.fillStyle = "#cfc7b6"; x.font = "26px " + S; x.fillText(TT.fecha(new Date()), W - M, 78);
+    x.fillStyle = "#e7b35c"; x.font = "bold 30px " + S; x.fillText("REYES CONNECT", M, 72);
+    x.fillStyle = "#f5eedf"; x.font = "bold 66px " + S; x.fillText(r.titulo, M, 150);
+    x.textAlign = "right"; x.fillStyle = "#cfc7b6"; x.font = "28px " + S; x.fillText(TT.fecha(new Date()), W - M, 72);
     x.textAlign = "left";
-    var y = 270;
+    var y = 256;
     if (esEjemplo) {
-      x.fillStyle = "#fbf1de"; x.fillRect(M, y - 38, W - 2 * M, 54);
-      x.fillStyle = "#8a5a00"; x.font = "bold 28px " + S; x.fillText(T.ejemploRot, M + 18, y - 2);
-      y += 50;
+      x.fillStyle = "#fbf1de"; x.fillRect(M, y - 40, W - 2 * M, 58);
+      x.fillStyle = "#8a5a00"; x.font = "bold " + F(32) + "px " + S; x.fillText(T.ejemploRot, M + 18, y);
+      y += 62;
     }
-    // Tus números
-    x.fillStyle = "#08080c"; x.font = "bold 32px " + S; x.fillText(TT.numeros, M, y); y += 14;
-    x.font = "26px " + S;
+    // Tus números: cada fila se parte en dos líneas si no cabe (antes se cortaba con «…»).
+    x.fillStyle = "#08080c"; x.font = "bold " + F(38) + "px " + S; x.fillText(TT.numeros, M, y); y += F(8);
     r.filas.forEach(function (f) {
-      y += 42;
-      x.fillStyle = "#2a2a33"; x.textAlign = "left";
-      var maxAncho = W - 2 * M - (f[1] ? 220 : 0), txt = f[0];
-      while (x.measureText(txt).width > maxAncho && txt.length > 4) txt = txt.slice(0, -2);
-      if (txt !== f[0]) txt = txt.replace(/\s*\S*$/, "") + "…";
-      x.fillText(txt, M, y);
-      if (f[1]) { x.textAlign = "right"; x.font = "bold 26px " + S; x.fillText(f[1], W - M, y); x.font = "26px " + S; }
-      x.strokeStyle = "#e6e6ea"; x.lineWidth = 1; x.beginPath(); x.moveTo(M, y + 14); x.lineTo(W - M, y + 14); x.stroke();
+      var lh = F(44);
+      y += F(50);
+      x.fillStyle = "#2a2a33"; x.textAlign = "left"; x.font = F(36) + "px " + S;
+      var fin = envolver(x, f[0], M, y, W - 2 * M - (f[1] ? F(290) : 0), lh);
+      if (f[1]) { x.textAlign = "right"; x.font = "bold " + F(36) + "px " + S; x.fillText(f[1], W - M, y); x.textAlign = "left"; }
+      y = fin - lh;
+      x.strokeStyle = "#e6e6ea"; x.lineWidth = 1; x.beginPath(); x.moveTo(M, y + F(16)); x.lineTo(W - M, y + F(16)); x.stroke();
     });
     x.textAlign = "left";
-    y += 70;
+    y += F(78);
     // Gráfica
-    x.fillStyle = "#08080c"; x.font = "bold 32px " + S; x.fillText(TT.grafica, M, y);
-    var altoG = Math.max(r.altoMinimo || 260, 1000 - y);
+    x.fillStyle = "#08080c"; x.font = "bold " + F(38) + "px " + S; x.fillText(TT.grafica, M, y);
+    var altoG = (r.altoMinimo || 260) + extra;
     r.dibujar(x, M, y + 20, W - 2 * M, altoG);
-    y += 20 + altoG + 40;
+    y += 20 + altoG + F(52);
     // Totales
-    x.fillStyle = "#08080c"; x.font = "bold 30px " + S; x.fillText(TT.totales, M, y); y += 20;
-    var bw = (W - 2 * M - 40) / 3;
+    x.fillStyle = "#08080c"; x.font = "bold " + F(36) + "px " + S;
+    y = envolver(x, TT.totales, M, y, W - 2 * M, F(42)) - F(42) + F(22);
+    var bw = (W - 2 * M - 40) / 3, alto = F(166);
     r.totales.forEach(function (t, i) {
       var bx = M + i * (bw + 20);
       x.strokeStyle = i === 0 ? "#e7b35c" : "#22d3ee"; x.lineWidth = 4;
-      x.strokeRect(bx, y, bw, 120);
-      x.fillStyle = "#55555f"; x.font = "bold 22px " + S;
-      envolver(x, t[0], bx + 16, y + 36, bw - 32, 26);
-      x.fillStyle = "#08080c"; x.font = "bold 40px " + S; x.fillText(t[1], bx + 16, y + 104);
+      x.strokeRect(bx, y, bw, alto);
+      x.fillStyle = "#55555f"; x.font = "bold " + F(30) + "px " + S;
+      envolver(x, t[0], bx + 16, y + F(42), bw - 32, F(34));
+      x.fillStyle = "#08080c"; x.font = "bold " + F(50) + "px " + S; x.fillText(t[1], bx + 16, y + alto - F(22));
     });
-    y += 170;
+    y += alto + F(62);
     // Hoy aprendiste
-    x.fillStyle = "#0e7f93"; x.font = "bold 28px " + S; x.fillText(TT.aprendisteTit, M, y); y += 38;
-    x.fillStyle = "#2a2a33"; x.font = "26px " + S;
-    y = envolver(x, TT.aprendiste, M, y, W - 2 * M, 34) + 10;
-    // Avisos y pie
-    x.fillStyle = "#8a5a00"; x.font = "bold 24px " + S;
-    y = envolver(x, TT.aviso, M, y, W - 2 * M, 30);
-    x.fillStyle = "#2a2a33"; x.font = "24px " + S;
-    y = envolver(x, TT.tuTelefono, M, y, W - 2 * M, 30);
-    y = envolver(x, TT.pedir, M, y + 6, W - 2 * M, 30);
-    var pieY = Math.max(y + 20, Hh - 110);
-    x.strokeStyle = "#d5d5db"; x.lineWidth = 2; x.beginPath(); x.moveTo(M, pieY - 32); x.lineTo(W - M, pieY - 32); x.stroke();
-    x.fillStyle = "#55555f"; x.font = "21px " + S;
-    envolver(x, T.licencia, M, pieY, W - 2 * M, 28);
-    return c;
+    x.fillStyle = "#0e7f93"; x.font = "bold " + F(36) + "px " + S; x.fillText(TT.aprendisteTit, M, y); y += F(46);
+    x.fillStyle = "#2a2a33"; x.font = F(33) + "px " + S;
+    y = envolver(x, TT.aprendiste, M, y, W - 2 * M, F(42)) + F(8);
+    // Nota final
+    x.fillStyle = "#8a5a00"; x.font = "bold " + F(31) + "px " + S;
+    y = envolver(x, TT.aviso, M, y, W - 2 * M, F(39));
+    x.fillStyle = "#2a2a33"; x.font = F(31) + "px " + S;
+    y = envolver(x, TT.tuTelefono, M, y, W - 2 * M, F(39));
+    y = envolver(x, TT.pedir, M, y + 4, W - 2 * M, F(39));
+    // Licencia, abajo
+    y += F(8);
+    x.strokeStyle = "#d5d5db"; x.lineWidth = 2; x.beginPath(); x.moveTo(M, y); x.lineTo(W - M, y); x.stroke();
+    y += F(44);
+    x.fillStyle = "#55555f"; x.font = F(28) + "px " + S;
+    y = envolver(x, T.licencia, M, y, W - 2 * M, F(36));
+    return { c: c, fin: y - F(36) + F(10), escala: s };
   }
 
   /* ---------- PDF sin librería: la hoja como imagen JPEG en una página carta ---------- */
@@ -573,30 +657,47 @@
     return out;
   }
 
-  $("#pdf").addEventListener("click", function () {
-    var est = $("#estado-pdf");
+  function blobPdf() {
     if (!lienzo) pintarHoja();
-    if (!lienzo) return;
-    var bytes = pdfDesdeLienzo(lienzo), nombre = T.hoja.archivo;
-    var blob = new Blob([bytes], { type: "application/pdf" });
-    var archivo = null;
-    try { archivo = new File([blob], nombre, { type: "application/pdf" }); } catch (e) {}
-    var telefono = /Android|iPhone|iPad|iPod|Mobi/i.test(navigator.userAgent || "");
-    if (telefono && archivo && navigator.canShare && navigator.canShare({ files: [archivo] })) {
-      navigator.share({ files: [archivo], title: TH.titulo }).then(function () { est.textContent = T.pdfListo; })
-        .catch(function (e) { if (e && e.name !== "AbortError") bajar(); });
-      return;
+    if (!lienzo) return null;
+    return new Blob([pdfDesdeLienzo(lienzo)], { type: "application/pdf" });
+  }
+  /* «Descargar PDF» descarga: enlace con «download» sobre el blob. Si el navegador no tiene «download»
+     o el clic falla, el PDF se abre en una pestaña nueva. No sabemos si bajó: no se dice «Listo» a ciegas. */
+  function bajarPdf() {
+    var est = $("#estado-pdf"), blob = blobPdf(), nombre = T.hoja.archivo;
+    if (!blob) return;
+    var u;
+    try { u = URL.createObjectURL(blob); } catch (e) { est.textContent = T.pdfNo; return; }
+    setTimeout(function () { try { URL.revokeObjectURL(u); } catch (e) {} }, 60000);
+    function enPestana() {
+      var w = null;
+      try { w = window.open(u, "_blank"); } catch (e) {}
+      est.textContent = w === null ? T.pdfNo : T.pdfPestana;
     }
-    bajar();
-    function bajar() {
-      try {
-        var u = URL.createObjectURL(blob), a = document.createElement("a");
-        a.href = u; a.download = nombre; document.body.appendChild(a); a.click(); a.remove();
-        setTimeout(function () { URL.revokeObjectURL(u); }, 60000);
-        // No sabemos si bajó: no se dice «Listo» a ciegas.
-        est.textContent = EN_APP ? T.pdfNo : T.pdfAyuda;
-      } catch (e) { est.textContent = T.pdfNo; }
-    }
+    var a = document.createElement("a");
+    if (!("download" in a)) { enPestana(); return; }
+    try {
+      a.href = u; a.download = nombre; a.rel = "noopener"; a.style.display = "none";
+      document.body.appendChild(a); a.click(); a.remove();
+      est.textContent = T.pdfBajando;
+    } catch (e) { enPestana(); }
+  }
+  $("#pdf").addEventListener("click", bajarPdf);
+
+  /* «Compartir» es otro botón: solo se enseña si el teléfono tiene la ventana de compartir con archivos. */
+  function archivoPdf(blob) {
+    try { return new File([blob || new Blob([""], { type: "application/pdf" })], T.hoja.archivo, { type: "application/pdf" }); } catch (e) { return null; }
+  }
+  function puedeCompartir() {
+    try { var f = archivoPdf(); return !!(f && navigator.share && navigator.canShare && navigator.canShare({ files: [f] })); } catch (e) { return false; }
+  }
+  $("#compartir").addEventListener("click", function () {
+    var est = $("#estado-pdf"), blob = blobPdf(), archivo = blob && archivoPdf(blob);
+    if (!archivo || !puedeCompartir()) { est.textContent = EN_APP ? T.pdfEnApp : T.pdfAyuda; return; }
+    try {
+      navigator.share({ files: [archivo], title: TH.titulo }).then(function () { est.textContent = T.compartirListo; }, function () {});
+    } catch (e) {}
   });
 
   $("#borrar").addEventListener("click", function () {
@@ -607,13 +708,13 @@
     lienzo = null;
     guardar();
     try { history.replaceState(history.state, "", location.pathname + location.search); } catch (e) {}
-    $("#en-app").hidden = true;
+    $("#en-app").hidden = true; $("#cierre").hidden = true; $("#compartir").hidden = true;
     $("#hoja-caja").innerHTML = '<div class="aviso-ok">' + T.borrado + "</div>";
     $("#pdf").disabled = true;
   });
 
   // Para pruebas locales (no envía nada): construye el PDF y lo devuelve en bytes.
-  window.RC.puerta = { estado: function () { return estado; }, pdf: function () { if (!lienzo) pintarHoja(); return lienzo ? pdfDesdeLienzo(lienzo) : null; }, irA: irA };
+  window.RC.puerta = { estado: function () { return estado; }, hoja: function () { return hojaInfo; }, pdf: function () { if (!lienzo) pintarHoja(); return lienzo ? pdfDesdeLienzo(lienzo) : null; }, irA: irA };
 
   try { history.replaceState({ paso: estado.paso }, ""); } catch (e) {}
   irA(estado.paso, true, true);

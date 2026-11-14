@@ -103,6 +103,9 @@ h3 { font-size: 19px; }
 .botones-opcion { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
 .botones-opcion button { flex: 1 0 auto; min-width: 48px; min-height: 52px; padding: 8px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,.22); background: #0d0d13; color: var(--crema); font: inherit; font-size: 19px; font-weight: 800; cursor: pointer; }
 .botones-opcion button[aria-pressed="true"] { background: var(--miel); color: #08080c; border-color: var(--miel); }
+/* Cuántos hijos (0 a 6): siete cuadrados en una sola fila. A 360 de ancho cada uno mide unos 43 px. */
+.botones-opcion[aria-labelledby="et-hijos"] { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; max-width: 472px; }
+.botones-opcion[aria-labelledby="et-hijos"] button { min-width: 0; min-height: 0; aspect-ratio: 1 / 1; padding: 0; font-size: 20px; }
 .edades { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 10px; margin-top: 10px; }
 .edades .campo { margin-top: 0; }
 .edades label { font-size: 14px; font-weight: 600; color: var(--crema-2); }
@@ -153,8 +156,22 @@ input[type="range"] { width: 100%; height: 44px; margin: 6px 0 0; accent-color: 
 
 /* Hoja */
 .hoja-img { margin-top: 16px; width: 100%; border-radius: 10px; border: 1px solid var(--borde); background: #fff; -webkit-touch-callout: default; }
+/* En el teléfono la hoja va de borde a borde: unos 32 px más de ancho para la letra. */
+@media (max-width: 640px) {
+  .hoja-img { width: calc(100% + 32px); max-width: none; margin-left: -16px; margin-right: -16px; border-radius: 0; border-left: 0; border-right: 0; }
+}
 .indicacion { margin-top: 10px; text-align: center; font-weight: 700; color: var(--cian); }
 .estado-pdf { margin-top: 8px; font-size: 15px; color: var(--crema-2); text-align: center; }
+
+/* Cierre con decisión del paso 3 */
+.cierre { margin-top: 22px; }
+.cierre h3 { font-family: var(--serif); font-weight: 600; font-size: 24px; }
+.cierre .cierre-pregunta { margin: 6px 0 0; color: var(--crema-2); }
+.cierre .acciones { margin-top: 16px; }
+.cierre .cierre-nota { margin: 10px 0 0; }
+.cierre .cierre-licencia { margin: 8px 0 0; font-size: 13px; color: var(--tenue); }
+.cierre .cierre-fuera { margin: 14px 0 0; padding: 12px 14px; border-radius: 14px; background: rgba(231,179,92,.08); border: 1px solid rgba(231,179,92,.30); color: var(--crema-2); font-size: 16px; }
+.cierre #cierre-florida .botones-opcion { margin-top: 10px; }
 
 .enlace-copia { width: 100%; margin-top: 8px; padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,.22); background: #0d0d13; color: var(--crema); font: inherit; font-size: 14px; }
 .pregunta h3 { margin-bottom: 4px; }
