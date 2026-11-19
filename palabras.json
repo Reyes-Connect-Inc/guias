@@ -1,6 +1,6 @@
 {
   "que_es": "Fuente única de las palabras de Reyes Connect. Muse, la app y Claude leen de aquí. Solo texto público.",
-  "actualizado": "2026-11-15",
+  "actualizado": "2026-11-19",
   "reglas": [
     "Un solo mensaje por comentario, con el saludo de la casa.",
     "Si la persona acepta una conversación, se le pide solo día y hora; ningún dato personal por mensaje.",
@@ -93,13 +93,11 @@
     {
       "palabra": "SISTEMA",
       "estado": "con el sí de Lázaro",
-      "nota": "Encender. Texto aprobado por Lázaro el 15-nov-2026 («Sí, apruébalo»). Video: «Tu título no era para un mostrador».",
-      "enlace": "https://reyesconnectapp.com/registro?ref=muse-sistema",
-      "imagenes": [
-        "https://reyes-connect-inc.github.io/guias/SISTEMA/guia.png"
-      ],
-      "mensaje_instagram": "Hola, ¿cómo estás? Te hablamos del equipo de Reyes Connect. Así funciona el sistema (te dejo la imagen):\n1. Te registras gratis en la app: https://reyesconnectapp.com/registro?ref=muse-sistema\n2. La máquina produce el contenido de un negocio y tú lo apruebas desde tu teléfono.\n3. El equipo te enseña a conseguir negocios y a atenderlos.\n¿Quieres que te mostremos cómo se ve por dentro?",
-      "mensaje_messenger": "Gracias por escribirnos. Así funciona el sistema (te dejo la imagen):\n1. Te registras gratis en la app: https://reyesconnectapp.com/registro?ref=muse-sistema\n2. La máquina produce el contenido de un negocio y tú lo apruebas desde tu teléfono.\n3. El equipo te enseña a conseguir negocios y a atenderlos.\n¿Quieres que te mostremos cómo se ve por dentro?"
+      "nota": "Texto del reel de lanzamiento aprobado por Lázaro el 19-nov-2026 («Sí, apruebo el texto»), directo en su chat con Claude. Reemplaza el del 15-nov y sirve también para quien comente SISTEMA en ese video.",
+      "enlace": "https://reyesconnectapp.com/registro?utm_source=instagram&utm_medium=dm&utm_campaign=reel-sistema",
+      "imagenes": [],
+      "mensaje_instagram": "¡Hola! Gracias por comentar SISTEMA. Aquí entras gratis: NOV!A, tu copiloto, te hace unas preguntas y deja tu cuenta lista.\nhttps://reyesconnectapp.com/registro?utm_source=instagram&utm_medium=dm&utm_campaign=reel-sistema\nSi te trabas, respóndenos aquí y te ayudamos.",
+      "mensaje_messenger": "¡Hola! Gracias por comentar SISTEMA. Aquí entras gratis: NOV!A, tu copiloto, te hace unas preguntas y deja tu cuenta lista.\nhttps://reyesconnectapp.com/registro?utm_source=instagram&utm_medium=dm&utm_campaign=reel-sistema\nSi te trabas, respóndenos aquí y te ayudamos."
     }
   ]
 }
